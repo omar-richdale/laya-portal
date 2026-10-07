@@ -1,0 +1,11 @@
+SLIDE NUMBER (bottom right): "07 / 12"
+ARCHETYPE: Measured table, three rows. Amber accent around typed security-topic cell. Below table, two separate footnote cards in slate and violet; do not use green pass styling.
+
+TITLE, exact text: ACCURACY DEPENDS ON THE TASK
+
+TABLE HEADERS: Checkpoint | Issue workflow / 233 | Security topic / 7 | QA cause / 7
+ROW 1: English | 225 | 4 | 4
+ROW 2: Multilingual | 170 | 3 | 0
+ROW 3: Typed decisions | 222 | 7 | 4
+BASELINE NOTE: Always choosing dependency update matches 196 / 233 issues (84.1%). Use scanner metadata first.
+LIMITATION NOTE: Only seven topic and seven QA cases. All QA decisions stayed below the 0.8 review threshold. Confidence is not correctness.

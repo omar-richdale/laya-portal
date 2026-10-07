@@ -1,0 +1,11 @@
+SLIDE NUMBER (bottom right): "10 / 12"
+ARCHETYPE: Four investigation lanes as stacked horizontal cards. Dependency grouping card amber. Current QA repair pipeline in solid navy below; dependency and credential lanes remain separate dashed extensions.
+
+TITLE, exact text: BUGSMITH: THE RIGHT WORK LANE
+
+DEPENDENCIES: 196 findings → 34 repository/package work groups
+CREDENTIALS: Owner review → confirm exposure → rotation plan
+SOURCE CODE: Reproduce → local regression → bounded repair
+BUSINESS REPORTS: Route to the operator; no code repair task
+APPLIED: Read-only backlog planner and optional QA disagreement hints.
+BOUNDARY: Current Bugsmith policy forbids dependency upgrades. No automatic upgrade, secret rotation or issue closure.

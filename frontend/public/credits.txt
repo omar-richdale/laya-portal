@@ -1,0 +1,15 @@
+Laya Local third-party notices
+
+React Bits SpotlightCard and FadeContent
+Copyright (c) 2026 David Haz
+https://reactbits.dev/ — https://github.com/DavidHDev/react-bits
+MIT + Commons Clause. Complete license: /licenses/react-bits.md
+
+Font Awesome Free
+Copyright 2026 Fonticons, Inc.
+https://fontawesome.com/
+Icons: CC BY 4.0; code: MIT. Complete license: /licenses/font-awesome.txt
+Icons are bundled locally; no paid icon account or remote icon service is used.
+
+Laya reference runtime and checkpoints: Convai Innovations, Apache 2.0
+https://github.com/NandhaKishorM/laya

@@ -1,0 +1,57 @@
+{
+  "captured_at": "2026-10-07T15:20:27.972Z",
+  "source": "Actual locally running service; no API fixtures or mocked predictions",
+  "viewport": {
+    "desktop": [
+      1600,
+      1200
+    ],
+    "mobile": [
+      390,
+      844
+    ]
+  },
+  "motion": "reduced; screenshot animations disabled",
+  "credentials": "Never written to screenshots, manifest or traces; no browser profile persisted",
+  "saved_default_unchanged": "auto",
+  "live_prediction": "English\n373 ms\ncuda:0",
+  "device": "cuda:0",
+  "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851",
+  "screenshots": [
+    {
+      "file": "playground.png",
+      "caption": "Live English support-ticket decision with choice, score and yes-probability outputs on CUDA.",
+      "sha256": "fb79960cd20af4f032d35ce12dd2ab67dc9803476793d91f1336d1120ca93c7c"
+    },
+    {
+      "file": "models-status.png",
+      "caption": "All three downloaded checkpoints, saved default and live GPU status.",
+      "sha256": "41020a52348e9988d45d92ec2255749968e86b09fe5793b28bc83c3bef80ce76"
+    },
+    {
+      "file": "model-guide.png",
+      "caption": "Offline checkpoint guide with language, use cases, local evidence and token budgets.",
+      "sha256": "75989630bc458405b84a48ad0d4d6342edee8e96acc5ee9a411cb2e6dc878702"
+    },
+    {
+      "file": "real-benchmark.png",
+      "caption": "Frozen October 1 benchmark: three models, 247 reference cases, measured timings and understandable replay examples.",
+      "sha256": "7b31a86df0a1aff977221ada837de2079aeb2358c1db766a026cafffe2f1a101"
+    },
+    {
+      "file": "batch.png",
+      "caption": "Live ordered English, French and Arabic batch using explicit checkpoint overrides.",
+      "sha256": "9381c51b3d633a2ba7786b7abff79585aeffaa5c5ff1ceba54ab2be7ff952eb6"
+    },
+    {
+      "file": "integration.png",
+      "caption": "REST and MCP integration discovery with placeholder credentials and local documentation.",
+      "sha256": "3e49e1092ffff867ed99c38ba9e817bfbe4030924a63d4ec189023b01bec3330"
+    },
+    {
+      "file": "mobile-token-budget.png",
+      "caption": "Multilingual token-budget guide on a 390px reduced-motion viewport.",
+      "sha256": "4564b3f57a41301a39654cb129825368171ffa40a2a84b9dd59ec946e9b2edca"
+    }
+  ]
+}

@@ -1,0 +1,1472 @@
+{
+  "snapshot": "2026-10-01T00:22:43.044917+00:00",
+  "mode": "read-only investigation plan",
+  "priority_policy": "Preserve Sift's source priorities and issue lifecycle. No findings suppressed or closed.",
+  "lanes": {
+    "dependency_update": {
+      "issues": [
+        {
+          "id": "VPN_website#157",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/157",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#156",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/156",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#155",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/155",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#154",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/154",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#152",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/152",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#151",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/151",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#144",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/144",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#143",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/143",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#142",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/142",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#141",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/141",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#140",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/140",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#139",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/139",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#138",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/138",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#137",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/137",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#129",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/129",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#124",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/124",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#123",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/123",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#122",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/122",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#121",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/121",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#120",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/120",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#119",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/119",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#118",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/118",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#117",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/117",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#116",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/116",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#115",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/115",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#114",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/114",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#113",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/113",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#112",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/112",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#111",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/111",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#110",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/110",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#108",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/108",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#107",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/107",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#106",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/106",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#105",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/105",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#104",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/104",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#103",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/103",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#102",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/102",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#101",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/101",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#100",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/100",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#99",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/99",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#98",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/98",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#97",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/97",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#96",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/96",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#95",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/95",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#93",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/93",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#92",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/92",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#90",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/90",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#89",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/89",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#88",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/88",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#87",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/87",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#85",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/85",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#84",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/84",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#83",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/83",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#82",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/82",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#81",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/81",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#80",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/80",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#79",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/79",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#78",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/78",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#77",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/77",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#74",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/74",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#73",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/73",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#72",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/72",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#71",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/71",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#70",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/70",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#40",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/40",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#39",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/39",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#37",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/37",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#36",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/36",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#34",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/34",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#33",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/33",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#31",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/31",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#30",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/30",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#29",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/29",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#28",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/28",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#27",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/27",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#26",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/26",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#25",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/25",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#24",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/24",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#23",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/23",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#22",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/22",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#21",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/21",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#20",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/20",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#19",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/19",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#18",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/18",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#17",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/17",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#16",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/16",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#15",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/15",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#14",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/14",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#13",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/13",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#12",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/12",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#11",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/11",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#10",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/10",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#9",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/9",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#8",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/8",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#7",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/7",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#6",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/6",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#5",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/5",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#114",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/114",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#113",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/113",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#112",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/112",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#111",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/111",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#110",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/110",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#109",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/109",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#108",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/108",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#107",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/107",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#102",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/102",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#101",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/101",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#100",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/100",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#99",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/99",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#98",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/98",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#97",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/97",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#96",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/96",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#95",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/95",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#94",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/94",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#93",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/93",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#92",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/92",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#91",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/91",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#90",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/90",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#89",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/89",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#88",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/88",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#87",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/87",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#86",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/86",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#85",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/85",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#84",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/84",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#83",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/83",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#82",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/82",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#81",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/81",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#80",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/80",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#79",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/79",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#78",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/78",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#77",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/77",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#76",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/76",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#75",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/75",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#74",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/74",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#73",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/73",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#72",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/72",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#71",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/71",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#70",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/70",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#69",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/69",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#68",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/68",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#67",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/67",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#66",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/66",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#65",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/65",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#64",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/64",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#63",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/63",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#62",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/62",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#61",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/61",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#60",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/60",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#59",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/59",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#58",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/58",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#57",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/57",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#56",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/56",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#55",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/55",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#54",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/54",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#53",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/53",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#52",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/52",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#51",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/51",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#50",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/50",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#49",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/49",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#48",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/48",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#46",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/46",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#45",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/45",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#43",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/43",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#42",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/42",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#41",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/41",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#40",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/40",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#39",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/39",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#38",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/38",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#37",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/37",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#36",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/36",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#35",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/35",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#34",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/34",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#33",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/33",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#32",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/32",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#31",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/31",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#30",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/30",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#29",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/29",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#28",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/28",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#27",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/27",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#26",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/26",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#25",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/25",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#24",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/24",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#23",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/23",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#22",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/22",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#21",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/21",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#20",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/20",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#19",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/19",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#18",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/18",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#17",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/17",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#16",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/16",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#9",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/9",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#8",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/8",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#7",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/7",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#6",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/6",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#5",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/5",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "total_guard_vpn_website#4",
+          "url": "https://github.com/Richdale-AI/total_guard_vpn_website/issues/4",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        }
+      ],
+      "contract": "Separate from current Bugsmith repair policy. Inspect installed dependency paths, affected ranges and fixed versions before proposing an update."
+    },
+    "credential_review": {
+      "issues": [
+        {
+          "id": "VPN_website#68",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/68",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#66",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/66",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#65",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/65",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#64",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/64",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#63",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/63",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#62",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/62",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#61",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/61",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#60",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/60",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#59",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/59",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#58",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/58",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#57",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/57",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#55",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/55",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#53",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/53",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#52",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/52",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#51",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/51",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#50",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/50",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#49",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/49",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#48",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/48",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#47",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/47",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#46",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/46",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#45",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/45",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#44",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/44",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        }
+      ],
+      "contract": "Owner confirms exposure and rotation scope. Never place credential values in agent context."
+    },
+    "source_review": {
+      "issues": [
+        {
+          "id": "VPN_website#150",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/150",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#136",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/136",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#76",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/76",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#75",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/75",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#67",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/67",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        }
+      ],
+      "contract": "Reproduce with pinned source, validate impact, then create a bounded repair with regression tests."
+    },
+    "business_report": {
+      "issues": [
+        {
+          "id": "VPN_website#148",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/148",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#146",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/146",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#134",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/134",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#109",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/109",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#94",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/94",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#91",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/91",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#86",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/86",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#69",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/69",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#43",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/43",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        },
+        {
+          "id": "VPN_website#4",
+          "url": "https://github.com/Richdale-AI/VPN_website/issues/4",
+          "basis": "Sift issue metadata and manually reviewed routing taxonomy; not vulnerability truth"
+        }
+      ],
+      "contract": "Operator/business intake; not an automatic code repair."
+    }
+  },
+  "dependency_package_groups": {
+    "VPN_website:baseline-browser-mapping": [
+      112,
+      110
+    ],
+    "VPN_website:browserslist": [
+      103,
+      102,
+      99,
+      98
+    ],
+    "VPN_website:deepmerge-ts": [
+      93,
+      92
+    ],
+    "VPN_website:esbuild": [
+      5
+    ],
+    "VPN_website:i18next-fs-backend": [
+      7,
+      6
+    ],
+    "VPN_website:i18next-http-backend": [
+      8
+    ],
+    "VPN_website:icu-minify": [
+      9
+    ],
+    "VPN_website:ip-address": [
+      152,
+      151,
+      79,
+      78,
+      77,
+      72,
+      71,
+      70
+    ],
+    "VPN_website:nanoid": [
+      105,
+      97,
+      85,
+      84,
+      83,
+      82
+    ],
+    "VPN_website:next": [
+      124,
+      114,
+      113,
+      111,
+      30,
+      29,
+      28,
+      27,
+      26,
+      25,
+      24,
+      23,
+      22,
+      21,
+      20,
+      19,
+      18,
+      17,
+      16,
+      15,
+      14,
+      13,
+      12,
+      11,
+      10
+    ],
+    "VPN_website:next-intl": [
+      31
+    ],
+    "VPN_website:nodemailer": [
+      157,
+      156,
+      155,
+      154,
+      144,
+      143,
+      142,
+      141,
+      140,
+      139,
+      138,
+      137,
+      123,
+      122,
+      121,
+      120,
+      118,
+      117,
+      116,
+      115,
+      106,
+      95
+    ],
+    "VPN_website:postcss": [
+      90,
+      89,
+      88,
+      87,
+      81,
+      80,
+      74,
+      73,
+      37,
+      36,
+      34,
+      33
+    ],
+    "VPN_website:postcss-selector-parser": [
+      104,
+      96
+    ],
+    "VPN_website:qs": [
+      108,
+      107,
+      101,
+      100,
+      39
+    ],
+    "VPN_website:sharp": [
+      129,
+      119,
+      40
+    ],
+    "total_guard_vpn_website:baseline-browser-mapping": [
+      102,
+      94
+    ],
+    "total_guard_vpn_website:browserslist": [
+      88,
+      87,
+      83,
+      82
+    ],
+    "total_guard_vpn_website:drizzle-orm": [
+      4
+    ],
+    "total_guard_vpn_website:esbuild": [
+      55
+    ],
+    "total_guard_vpn_website:i18next-fs-backend": [
+      6,
+      5
+    ],
+    "total_guard_vpn_website:i18next-http-backend": [
+      56
+    ],
+    "total_guard_vpn_website:icu-minify": [
+      7
+    ],
+    "total_guard_vpn_website:lodash": [
+      9,
+      8
+    ],
+    "total_guard_vpn_website:nanoid": [
+      86,
+      85,
+      64,
+      63,
+      62,
+      61
+    ],
+    "total_guard_vpn_website:next": [
+      107,
+      100,
+      99,
+      93,
+      41,
+      40,
+      39,
+      38,
+      37,
+      36,
+      35,
+      34,
+      33,
+      32,
+      31,
+      30,
+      29,
+      28,
+      27,
+      26,
+      25,
+      24,
+      23,
+      22,
+      21,
+      20,
+      19,
+      18
+    ],
+    "total_guard_vpn_website:next-intl": [
+      17,
+      16
+    ],
+    "total_guard_vpn_website:nodemailer": [
+      114,
+      113,
+      112,
+      111,
+      110,
+      109,
+      98,
+      97,
+      96,
+      95,
+      81,
+      80,
+      79,
+      78,
+      77,
+      76,
+      74,
+      73,
+      72,
+      71,
+      70,
+      69
+    ],
+    "total_guard_vpn_website:picomatch": [
+      51,
+      50,
+      49,
+      48
+    ],
+    "total_guard_vpn_website:postcss": [
+      68,
+      67,
+      66,
+      65,
+      60,
+      59,
+      58,
+      57,
+      46,
+      45,
+      43,
+      42
+    ],
+    "total_guard_vpn_website:postcss-selector-parser": [
+      84,
+      75
+    ],
+    "total_guard_vpn_website:qs": [
+      92,
+      91,
+      90,
+      89,
+      52
+    ],
+    "total_guard_vpn_website:sharp": [
+      108,
+      101,
+      53
+    ],
+    "total_guard_vpn_website:yaml": [
+      54
+    ]
+  },
+  "qa_actions": [
+    {
+      "case": "GhostShield GS-018",
+      "action": "Apply explicit card-required contract to the QA profile; rerun through approved QA workflow."
+    },
+    {
+      "case": "TotalGuard GS-027 / GS-028",
+      "action": "Keep rejection-after-signout assertions. Reproduce app-token revocation independently on the report's deployed revision."
+    },
+    {
+      "case": "GhostShield GS-015 / GS-027",
+      "action": "Inspect overlay and request evidence; root cause is not established by a timeout."
+    }
+  ]
+}

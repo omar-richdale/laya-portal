@@ -1,0 +1,62 @@
+Create a 16:9 presentation slide, 1920x1080, flat vector design. This slide belongs to
+a 12-slide deck about "Local System One" that must look completely consistent, so apply the
+following style system exactly.
+
+STYLE SYSTEM:
+- Canvas: solid deep navy-black #0B1326 background with a faint 1px technical grid at
+  7% opacity. No vignette, no texture, no noise.
+- Surfaces: component boxes and cards are filled #17233D with a 1px #24344F edge.
+- Colour meanings. These are semantic and NEVER decorative:
+    #F5A623 amber  = the one thing that matters. The signal, the exposure that reaches
+                     a human, the single highlighted bar, the alert path. Use it
+                     sparingly and only for the thing being singled out.
+    #8A94A6 slate  = structure, scaffolding, secondary labels, connectors, and "the
+                     many" (the full finding inventory; no finding is suppressed).
+    #1C2E5C navy   = application-owned components and the deep bars of the brand motif.
+    #A99FBD violet = "could not look" — inconclusive, not analysable, unknown. It is
+                     deliberately neither pass nor fail. Only ever used for that.
+    #FF7064 rose   = failure, refusal, a forbidden path, "this must never happen".
+    #F4F6FB near-white = body text and headings.
+- Outline convention: a SOLID outline means a application-owned or required component. A
+  DASHED outline means an external service or a conditional path. Keep both at the
+  same stroke weight so neither reads as lesser.
+- Flat vector only. 1px hairline strokes. 6px rounded corners. Absolutely no
+  photographs, no 3D, no bevels, no drop shadows, no glow effects, no lens flares, no
+  stock-art robots or humans, no isometric illustration, no gradients except one very
+  subtle darkening at the extreme bottom edge.
+- THE BRAND MOTIF: Sift's logo is the letter S built from stacked horizontal bars,
+  with exactly one bar picked out in amber among many navy bars. Stacked horizontal
+  bars of varying length are this deck's core visual device. Where a slide shows
+  quantity, ranking, distribution or "many things, one that matters", build it from
+  stacked horizontal bars and pick out the significant one in #F5A623. Do not draw the
+  Sift logo itself on any slide.
+- Typography: bold condensed uppercase sans-serif for the slide title. Clean
+  medium-weight grotesque sans-serif for all labels and body text. Small monospace
+  ONLY for file paths, CVE identifiers, code identifiers, hostnames and numeric codes.
+- A 3px #F5A623 horizontal rule, 120px wide, sits directly beneath the slide title.
+- Strict left-aligned grid. Generous negative space. Never crowd the edges. Keep a
+  90px margin on all four sides.
+- Bottom-left corner: small #8A94A6 monospace text "LAYA / RICHDALE".
+- Bottom-right corner: small #8A94A6 monospace slide number, exactly as given below.
+- Spell every single word exactly as written. Render all text crisply and legibly. Do
+  not invent, add, translate or paraphrase any text. Do not add a legend unless one is
+  specified.
+
+SLIDE SPECIFICATION:
+
+LANGUAGE:
+- All wording is supplied below and must be reproduced exactly. Do not rephrase, do not
+  shorten, and do not add any headline, caption, tagline or summary line of your own.
+SLIDE NUMBER (bottom right): "12 / 12"
+ARCHETYPE: Rollout. Three numbered cards connected left to right, then a four-line delivery list. Single amber emphasis on independent evaluation, no unmeasured savings claim.
+
+TITLE, exact text: START WITH MEASURED ADVICE
+
+STEP 1: Enable optional shadow adapters locally
+STEP 2: Compare advice against independent evidence
+STEP 3: Expand the evaluation before any automated gate
+DELIVERED: Real-data corpus and GPU measurements
+DELIVERED: Portal examples and advisory HTTP workflows
+DELIVERED: Three optional repository adapters and QA contract correction
+DELIVERED: Four diagrams, reproducible prompts and this deck
+FINAL LINE: Fast decisions help organize investigation. Evidence and policy control action.

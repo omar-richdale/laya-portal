@@ -1,0 +1,12 @@
+SLIDE NUMBER (bottom right): "05 / 12"
+ARCHETYPE: Methodology. Four equal tiles with large numbers, then a simple comparison rail from frozen corpus to three models to recorded outputs.
+
+TITLE, exact text: A FAIR LOCAL COMPARISON
+
+TILE 1: 247 · distinct decision cases
+TILE 2: 3 · repeated passes per checkpoint
+TILE 3: 2,223 · single-request predictions
+TILE 4: 288 · additional batched states
+SETTINGS: Same inputs and label order · 512 context tokens · 192 question tokens · batch size 32 · microbatch 2
+RESULT: CUDA verified · no truncation · repeated choices unchanged
+FOOTNOTE: Three warmup calls per model excluded from steady-state latency. Reference labels are evidence audits, not verified vulnerability truth.

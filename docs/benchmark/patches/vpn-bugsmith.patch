@@ -1,0 +1,172 @@
+diff --git a/src/fixer/pipeline.py b/src/fixer/pipeline.py
+index 73d676f..e19e323 100644
+--- a/src/fixer/pipeline.py
++++ b/src/fixer/pipeline.py
+@@ -369,6 +369,10 @@ def process_report(
+           f"{len(result.skipped)} gated out")
+     for spec, reason in result.skipped:
+         print(f"  gated: {spec} — {reason}")
++    for hint in result.system_one_advice:
++        print(f"  advisory only: {hint['spec_id']} {hint['label']} "
++              f"p={hint['answer_confidence']:.3f}; trusted report={hint['report_classification']}; "
++              f"review_required={hint['review_required']}")
+ 
+     for finding in result.selected:
+         print(f"→ {finding.spec_id} ({finding.confidence} confidence, fp {finding.fingerprint[:12]})")
+diff --git a/src/fixer/triage.py b/src/fixer/triage.py
+index de8daf8..6a8db2d 100644
+--- a/src/fixer/triage.py
++++ b/src/fixer/triage.py
+@@ -23,6 +23,7 @@ from .report_model import (
+     TestResult,
+ )
+ from .settings import FixerSettings
++from .system_one import hint as system_one_hint
+ 
+ _CONFIDENCE_RANK: dict[str, int] = {"low": 0, "medium": 1, "high": 2}
+ 
+@@ -56,6 +57,7 @@ class TriageResult:
+     selected: list[Finding]
+     deferred: list[Finding]          # over budget this run
+     skipped: list[tuple[str, str]]   # (specId, reason) — gated out
++    system_one_advice: list[dict] = field(default_factory=list)
+ 
+ 
+ def _priority_key(finding: Finding) -> tuple:
+@@ -97,10 +99,26 @@ def triage(
+ 
+     candidates.sort(key=_priority_key)
+     budget = settings.max_issues_per_run
++    shadow_advice = []
++    # Measure disagreements for operators only. The selected list is already
++    # fixed by report classifications, investigation confidence and budget.
++    for issue in issues[:8]:
++        test = report.failing_test(issue.specId, issue.project)
++        contract = "App sign-out must revoke app tokens. Timeouts alone do not prove a website defect."
++        if report.site in ("ghostshield", "totalguard"):
++            contract += " A fresh verified account without entitlement has no automatic trial; GhostShield trial activation requires a card."
++        hint = system_one_hint({"site": report.site, "test": test.title if test else issue.whatItChecks,
++                                "trusted_contract": contract,
++                                "observed_error": " ".join(test.errors) if test else "No test evidence"})
++        if hint is None:
++            break
++        shadow_advice.append({"spec_id": issue.specId, "project": issue.project,
++                              "report_classification": issue.classification, **hint})
+     return TriageResult(
+         selected=candidates[:budget],
+         deferred=candidates[budget:],
+         skipped=skipped,
++        system_one_advice=shadow_advice,
+     )
+ 
+ 
+diff --git a/tests/fixer/test_triage.py b/tests/fixer/test_triage.py
+index d541d5d..371e734 100644
+--- a/tests/fixer/test_triage.py
++++ b/tests/fixer/test_triage.py
+@@ -47,3 +47,15 @@ def test_error_signature_normalizes_volatile_fragments():
+     sig = error_signature(["Timeout 15000ms at 2026-07-15T06:04:11Z id 3f9a2c1e-1111-2222-3333-444455556666"])
+     assert "<ts>" in sig or "<n>" in sig
+     assert "3f9a2c1e" not in sig
++
++
++def test_shadow_disagreement_cannot_change_gates(report, settings, monkeypatch):
++    import fixer.triage as module
++    monkeypatch.setattr(module, "system_one_hint", lambda state: {
++        "label": "TEST_BUG", "answer_confidence": .99, "review_required": False,
++        "advisory_only": True, "authorization": False, "checkpoint": "english", "revision": "test"})
++    result = triage(report, settings)
++    assert [f.spec_id for f in result.selected] == ["GS-014"]
++    assert dict(result.skipped)["GS-020"] == "classification=TEST_BUG"
++    assert result.system_one_advice
++    assert result.system_one_advice[0]["label"] == "TEST_BUG"
+diff --git a/src/fixer/system_one.py b/src/fixer/system_one.py
+new file mode 100644
+--- /dev/null
++++ b/src/fixer/system_one.py
+@@ -0,0 +1,69 @@
++"""Optional local System One hints; existing evidence and policy remain authoritative."""
++import json
++import math
++import os
++import re
++from urllib.error import HTTPError, URLError
++from urllib.parse import urlsplit
++from urllib.request import Request, HTTPRedirectHandler, build_opener
++
++PREFIX = "FIXER_LAYA"
++WORKFLOW = "qa_cause"
++DEFAULT_MODEL = "english"
++LABELS = ['INFRA', 'PRODUCT_BUG', 'TEST_BUG', 'UNKNOWN']
++
++
++def redact(value):
++    """Project text only after removing common credential forms and identifiers."""
++    text = str(value)
++    text = re.sub(r"\x1b\[[0-9;]*m", "", text)
++    text = re.sub(r"[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}", "[email]", text)
++    text = re.sub(r"(?i)(bearer\s+)[^\s\"']+", r"\1[redacted]", text)
++    text = re.sub(r"(?i)((?:password|secret|api[_-]?key|access[_-]?token|token)\s*[=:]\s*)[^\s,;]+", r"\1[redacted]", text)
++    text = re.sub(r"[A-Za-z0-9_+/=-]{32,}", "[redacted-long-value]", text)
++    return text[:550]
++
++
++class NoRedirect(HTTPRedirectHandler):
++    def redirect_request(self, *args, **kwargs):
++        return None
++
++
++def hint(state):
++    """Return validated advice or None, with no requests unless explicitly configured."""
++    url, key = os.getenv(PREFIX + "_URL", ""), os.getenv(PREFIX + "_API_KEY", "")
++    if not url or not key:
++        return None
++    try:
++        parsed = urlsplit(url)
++        if parsed.scheme not in ("http", "https") or not parsed.hostname or parsed.username or parsed.password or parsed.query or parsed.fragment:
++            return None
++        model = os.getenv(PREFIX + "_MODEL", DEFAULT_MODEL)
++        if model not in ("auto", "english", "multilingual", "typed-decisions"):
++            return None
++        timeout = float(os.getenv(PREFIX + "_TIMEOUT_SECONDS", "2"))
++        if not math.isfinite(timeout) or not 0 < timeout <= 5:
++            return None
++        payload = {"state": {k: redact(v) for k, v in state.items()}, "model": model, "min_confidence": .8}
++        request = Request(url.rstrip("/") + "/api/v1/workflows/" + WORKFLOW,
++                          data=json.dumps(payload).encode(), headers={"Authorization": "Bearer " + key, "Content-Type": "application/json"})
++        with build_opener(NoRedirect()).open(request, timeout=timeout) as response:
++            data = json.loads(response.read(65537))
++        if not isinstance(data, dict) or not all(isinstance(data.get(k), dict) for k in ("advice", "runtime", "routing")):
++            return None
++        advice = data["advice"]
++        confidence = advice["answer_confidence"]
++        if (advice.get("advisory_only") is not True or advice.get("authorization") is not False
++                or advice.get("workflow") != WORKFLOW or advice.get("label") not in LABELS
++                or isinstance(confidence, bool) or not isinstance(confidence, (int, float))
++                or not math.isfinite(confidence) or not 0 <= confidence <= 1
++                or not isinstance(advice.get("review_required"), bool)
++                or data["runtime"].get("device") != "cuda:0"
++                or data["routing"].get("model") not in ("english", "multilingual", "typed-decisions")
++                or not isinstance(data["runtime"].get("revision"), str)):
++            return None
++        return {"label": advice["label"], "answer_confidence": confidence,
++                "review_required": advice["review_required"], "advisory_only": True, "authorization": False,
++                "checkpoint": data["routing"]["model"], "revision": data["runtime"]["revision"]}
++    except (OSError, HTTPError, URLError, ValueError, KeyError, TypeError):
++        return None
+diff --git a/docs/fixer/system-one-advice.md b/docs/fixer/system-one-advice.md
+new file mode 100644
+--- /dev/null
++++ b/docs/fixer/system-one-advice.md
+@@ -0,0 +1,11 @@
++# Optional Laya shadow cross-check
++
++Triage retains its PRODUCT_BUG classification, investigation-confidence and repair-budget gates. After computing the candidate order, an opt-in client records QA cause hints in `TriageResult.system_one_advice`; pipeline console output shows the model label beside the trusted report label. Hints never alter selected/deferred/skipped findings or enter the coding prompt. They cannot authorize tools, dependency updates, secret rotation or merges.
++
++Enable only in the trusted service process by setting `FIXER_LAYA_URL` and `FIXER_LAYA_API_KEY`. Default model: `english`; optional `FIXER_LAYA_MODEL`. Optional `FIXER_LAYA_TIMEOUT_SECONDS` defaults to 2 and is bounded to 5 seconds. The adapter reads process environment variables, so adding these keys to a settings-only `.env` does not itself enable it. Leave them unset to disable it.
++
++At most eight report issues receive shadow advice. Unavailable/invalid responses return no hint and stop further shadow calls. Common credential forms and account emails are removed from bounded facts; approve that projection before enabling it for confidential reports. Never pass the API key to a coding subprocess. The existing allowlisted execution environment remains required.
++
++The real seven-case QA audit matched four references with English and missed the new card-required trial contract. Thus disagreement output is an observation for operators, not an automated QA gate. Current Bugsmith policy forbids dependency upgrades, so the 196 dependency findings require a separate remediation contract. The read-only planner in the sibling Laya project groups them into 34 repository/package investigation groups without resolving or closing issues.
++
++Guide: http://127.0.0.1:8000/docs/system-one-integrations.md. Laya's `examples/replay_shadow_adapters.py` exercises native clients with the captured reports, without invoking this repair pipeline. No deployment or GitHub mutation accompanies these local changes.

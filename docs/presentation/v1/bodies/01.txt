@@ -1,0 +1,9 @@
+SLIDE NUMBER (bottom right): "01 / 12"
+ARCHETYPE: Cover. Left-aligned title and subtitle, restrained stacked bars on the right, no placeholders.
+
+TITLE, exact text: LOCAL SYSTEM ONE
+
+EYEBROW: RICHDALE AI
+SUBTITLE: Fast decision hints for Sift, Bugsmith and VPN QA
+SUPPORTING LINE: Measured on your RTX 4050 with real repository issues and QA evidence.
+METADATA: 01 OCT 2026 · LOCAL BENCHMARK

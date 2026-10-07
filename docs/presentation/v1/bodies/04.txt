@@ -1,0 +1,12 @@
+SLIDE NUMBER (bottom right): "04 / 12"
+ARCHETYPE: Architecture. Three small client boxes on left connect to bearer-auth API in center. Queue then single CUDA worker then one resident checkpoint on right. Three checkpoint names below worker. Offline cache at bottom.
+
+TITLE, exact text: ONE LOCAL GPU WORKER
+
+CLIENTS: React portal; HTTP apps; MCP agents
+API: FastAPI · port 8000 · bearer key
+QUEUE: Eight outstanding jobs · serialized inference
+WORKER: Python + PyTorch · RTX 4050 · CUDA only
+CHECKPOINTS: English; Multilingual; Typed decisions
+CACHE: Offline weights · pinned revision
+RULE: Unload before switching. GPU failure returns an error; no CPU retry.

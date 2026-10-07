@@ -1,0 +1,12 @@
+SLIDE NUMBER (bottom right): "03 / 12"
+ARCHETYPE: Three large cards connected left to right. First amber decision card, second navy evidence card, third navy repair card. Separate rose forbidden rail below.
+
+TITLE, exact text: DECIDE FIRST. INVESTIGATE NEXT.
+
+CARD 1: SYSTEM ONE
+Subtext: Small fixed choices · probabilities · milliseconds
+CARD 2: REASONING AGENT
+Subtext: Inspect evidence · reproduce · verify cause
+CARD 3: CONTROLLED REPAIR
+Subtext: Policy gates · regression tests · human review
+FORBIDDEN RAIL: A classification never authorizes a tool call, suppresses a finding or proves a vulnerability.

@@ -1,0 +1,11 @@
+SLIDE NUMBER (bottom right): "06 / 12"
+ARCHETYPE: Measured table with three rows and four columns. Stacked bars under table compare median latency; amber highlight fastest multilingual bar. Numbers exact, no invented values.
+
+TITLE, exact text: FAST ENOUGH FOR A HINT
+
+TABLE HEADERS: Checkpoint | Median | p95 | Batch states/s
+ROW 1: English | 61.53 ms | 76.52 ms | 28.26
+ROW 2: Multilingual | 51.43 ms | 67.56 ms | 35.54
+ROW 3: Typed decisions | 63.27 ms | 79.02 ms | 28.41
+FOOTNOTE: Resident-checkpoint service time on this corpus. First calls with switching: 2.41 s / 1.59 s / 2.06 s. Not an upstream speed guarantee.
+MEMORY NOTE: Observed allocated VRAM: 1.58 / 1.23 / 1.58 GiB. Post-call readings are not per-checkpoint peak measurements.

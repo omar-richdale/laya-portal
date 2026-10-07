@@ -1,0 +1,54 @@
+{
+  "recorded_at": "2026-10-01T01:38:49.814177+00:00",
+  "python": "3.12.10",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "repositories": {
+    "sift": {
+      "path": "C:\\Users\\richd\\Documents\\oMAR\\Agentic-production\\sift",
+      "commit": "110a429a829ade6be1292e72bb79f9f6d31ce7b8"
+    },
+    "vpn-bugsmith": {
+      "path": "C:\\Users\\richd\\Documents\\oMAR\\Agentic-production\\vpn-bugsmith",
+      "commit": "cd47db02d723ab6fbe886843bdc82b6f954623c7"
+    },
+    "QA_Web_Testing_Agent": {
+      "path": "C:\\Users\\richd\\Documents\\oMAR\\Agentic-production\\QA_Web_Testing_Agent",
+      "commit": "82f12756a42eb59d7ddb124005cd35f1118f42f1"
+    },
+    "VPN_website": {
+      "path": "C:\\Users\\richd\\Documents\\oMAR\\Agentic-production\\VPN_website",
+      "commit": "392b5a5bd555c90e4927a9b0fc7168a06fe9bbcb"
+    },
+    "total_guard_vpn_website": {
+      "path": "C:\\Users\\richd\\Documents\\oMAR\\Agentic-production\\total_guard_vpn_website",
+      "commit": "48ca710fbb8a2410029a281f71e34235164d2613"
+    }
+  },
+  "driver_version": "616.92",
+  "qa_revisions": {
+    "20260930-060000-9iy9o": {
+      "repository": "Richdale-AI/VPN_website",
+      "commitSha": "af58aab7b202e7fd636284cfb96f3058bf96d1ff",
+      "commitRef": "main",
+      "deploymentId": "dpl_4zatRYWao2KiYrmnzXFhcgSQ9sr6",
+      "resolvedRevision": "yul1::iad1::xc8tw-1790748003501-6dc5d5480b75",
+      "source": "build-info"
+    },
+    "20260930-071000-9o49u": {
+      "repository": "Richdale-AI/total_guard_vpn_website",
+      "commitSha": "e2f9d13bf8a36f1e003805539b32907da5b062c8",
+      "commitRef": "main",
+      "deploymentId": "dpl_FqCej6hfZ6wBzTcNt1Djn4iyNrFL",
+      "resolvedRevision": "yul1::iad1::6lpvd-1790752202681-c9c5029155d2",
+      "source": "build-info"
+    },
+    "20260929-071000-wzuvk": {
+      "repository": "Richdale-AI/total_guard_vpn_website",
+      "commitSha": "e2f9d13bf8a36f1e003805539b32907da5b062c8",
+      "commitRef": "main",
+      "deploymentId": "dpl_FqCej6hfZ6wBzTcNt1Djn4iyNrFL",
+      "resolvedRevision": "yul1::iad1::92xrp-1790665803373-91c056320a8c",
+      "source": "build-info"
+    }
+  }
+}

@@ -1,0 +1,254 @@
+diff --git a/src/report/model.ts b/src/report/model.ts
+index 2c3a1f1..4d86e95 100644
+--- a/src/report/model.ts
++++ b/src/report/model.ts
+@@ -301,6 +301,18 @@ export interface SourceRevision {
+   source: 'build-info' | 'unavailable';
+ }
+ 
++export interface SystemOneAdvice {
++  specId: string;
++  project: string;
++  label: IssueClassification;
++  answerConfidence: number;
++  reviewRequired: boolean;
++  checkpoint: string;
++  revision: string;
++  advisoryOnly: true;
++  authorization: false;
++}
++
+ export interface RunReport {
+   runId: string;
+   site: string;
+@@ -325,6 +337,8 @@ export interface RunReport {
+   investigations?: FailureInvestigation[];
+   assessment?: Assessment;
+   logAnalysis?: LogAnalysis;
++  /** Shadow classifications only; do not use to change test status or repair permissions. */
++  systemOneAdvice?: SystemOneAdvice[];
+ }
+ 
+ /** Feature buckets keyed by spec file basename; single source for labels + coreness. */
+diff --git a/src/run.ts b/src/run.ts
+index 3ba5658..27f82a9 100644
+--- a/src/run.ts
++++ b/src/run.ts
+@@ -30,6 +30,7 @@ import { buildContext, notifyAll } from './notify/index.js';
+ import { cleanupAccounts, reclaimRedeemCode } from './db/cleanup.js';
+ import { readCreatedAccounts } from './fixtures/accounts.js';
+ import { analyzeRun } from './llm/triage.js';
++import { systemOneAdvice } from './llm/systemOne.js';
+ import { investigateFailures } from './llm/investigate.js';
+ import { analyzeLogs, fallbackLogAnalysis } from './llm/logAnalysis.js';
+ import { resolveRunId } from './util/runid.js';
+@@ -399,6 +400,7 @@ export async function runSession(site: SiteName, opts: RunOpts = {}): Promise<Ru
+   // gateway is down or throws — reportData then falls back the same way.
+   try {
+     if (!runControl.cancelled && report.status !== 'PASS') {
++      report.systemOneAdvice = await systemOneAdvice(report, profile);
+       report.assessment = await analyzeRun(cfg, report);
+       report.narrative = report.assessment?.executiveSummary;
+     }
+diff --git a/src/sites/ghostshield.ts b/src/sites/ghostshield.ts
+index 4be0e01..b629164 100644
+--- a/src/sites/ghostshield.ts
++++ b/src/sites/ghostshield.ts
+@@ -11,8 +11,9 @@ export const ghostshield: SiteProfile = {
+   name: 'ghostshield',
+   displayName: 'GhostShield',
+   defaultLang: 'en',
+-  // GhostShield still auto-starts a no-card 10-day trial at email verification.
+-  signupGrantsTrial: true,
++  // Card-required trial activation replaced the automatic trial in September 2026.
++  // Verification alone grants no entitlement; GS-018 must expect the paywall.
++  signupGrantsTrial: false,
+   signupHasCaptcha: true,
+   dynamicIndexes: [
+     '/blog',
+diff --git a/src/tests/trial-redeem.spec.ts b/src/tests/trial-redeem.spec.ts
+index f8197ab..2c7bf38 100644
+--- a/src/tests/trial-redeem.spec.ts
++++ b/src/tests/trial-redeem.spec.ts
+@@ -108,15 +108,14 @@ test.describe('trial + redeem', () => {
+         .toBe('paywall');
+     });
+   } else {
+-    test('[GS-018] signup grants no free trial; a fresh account lands on the plan-picker paywall', async ({ page }, testInfo) => {
++    test('[GS-018] signup grants no automatic trial; a fresh account lands on the plan-picker paywall', async ({ page }, testInfo) => {
+       const account = makeAccount(inbox.user, profile.name, runId, attemptPurpose('trial', testInfo.retry));
+       await signupAndVerify(page, { account, creds, profile, baseUrl: site.baseUrl, runId, cfg });
+ 
+       // ── Phase 1: a fresh verified account has NO entitlement ───────────────
+-      // TotalGuard removed the auto-trial: the verify page routes browser users
+-      // to /onboarding/pricing, and the dashboard API returns status='inactive'
+-      // for them, so the dashboard renders the "Get Your Plan" / "Redeem Partner
+-      // Code" paywall (isPlanExpired). Sign in explicitly first — the post-verify
++      // TotalGuard removed its automatic trial; GhostShield requires a card to
++      // activate one. Verification alone grants no entitlement on either site.
++      // The dashboard should show the plan paywall. Sign in explicitly first — the post-verify
+       // auto-session can occasionally fail and fall back to /signin, and signIn()
+       // no-ops when the session is already live.
+       await signIn(page, profile, account.email, account.password);
+diff --git a/src/llm/systemOne.ts b/src/llm/systemOne.ts
+new file mode 100644
+--- /dev/null
++++ b/src/llm/systemOne.ts
+@@ -0,0 +1,56 @@
++/** Optional shadow advice. Test status, existing assessment and notification gates stay authoritative. */
++import type { RunReport, SystemOneAdvice } from '../report/model.js';
++import type { SiteProfile } from '../sites/types.js';
++
++export function redactSystemOne(value: string): string {
++  return value.replace(/\u001b\[[0-9;]*m/g, '')
++    .replace(/[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}/g, '[email]')
++    .replace(/(bearer\s+)[^\s"']+/gi, '$1[redacted]')
++    .replace(/((?:password|secret|api[_-]?key|access[_-]?token|token)\s*[=:]\s*)[^\s,;]+/gi, '$1[redacted]')
++    .replace(/[A-Za-z0-9_+/=-]{32,}/g, '[redacted-long-value]').slice(0, 550);
++}
++
++export async function systemOneAdvice(report: RunReport, profile: SiteProfile): Promise<SystemOneAdvice[] | undefined> {
++  const base = process.env.QA_LAYA_URL;
++  const key = process.env.QA_LAYA_API_KEY;
++  if (!base || !key || report.status === 'PASS') return undefined;
++  const output: SystemOneAdvice[] = [];
++  try {
++    const url = new URL(base);
++    if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password || url.search || url.hash) return undefined;
++    const model = process.env.QA_LAYA_MODEL ?? 'english';
++    if (!['auto', 'english', 'multilingual', 'typed-decisions'].includes(model)) return undefined;
++    const seconds = Number(process.env.QA_LAYA_TIMEOUT_SECONDS ?? '2');
++    if (!Number.isFinite(seconds) || seconds <= 0 || seconds > 5) return undefined;
++    for (const test of report.tests.filter(t => ['failed', 'timedOut', 'interrupted'].includes(t.outcome)).slice(0, 8)) {
++      const investigation = report.investigations?.find(i => i.specId === test.specId && i.project === test.project);
++      let contract = profile.signupGrantsTrial
++        ? 'Email verification grants an automatic trial.'
++        : 'A fresh verified account without entitlement has no automatic trial.';
++      if (profile.name === 'ghostshield' && !profile.signupGrantsTrial) contract += ' Trial activation requires a credit card.';
++      contract += ' App sign-out must revoke app tokens. Timeouts alone do not prove a product defect.';
++      const state = { site: report.site, test: redactSystemOne(test.title), trusted_contract: contract,
++        observed_error: redactSystemOne(test.errors.join(' ')), evidence: redactSystemOne(investigation?.evidence.join(' ') ?? '') };
++      const response = await fetch(base.replace(/\/$/, '') + '/api/v1/workflows/qa_cause', {
++        method: 'POST', redirect: 'error', signal: AbortSignal.timeout(seconds * 1000),
++        headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
++        body: JSON.stringify({ state, model, min_confidence: 0.8 }),
++      });
++      if (!response.ok) break;
++      const text = await response.text();
++      if (text.length > 65536) break;
++      const data = JSON.parse(text);
++      const advice = data.advice;
++      if (advice?.advisory_only !== true || advice.authorization !== false || advice.workflow !== 'qa_cause'
++          || !['PRODUCT_BUG', 'TEST_BUG', 'INFRA', 'UNKNOWN'].includes(advice.label)
++          || typeof advice.answer_confidence !== 'number' || !Number.isFinite(advice.answer_confidence)
++          || advice.answer_confidence < 0 || advice.answer_confidence > 1 || typeof advice.review_required !== 'boolean'
++          || data.runtime?.device !== 'cuda:0' || typeof data.runtime?.revision !== 'string'
++          || !['english', 'multilingual', 'typed-decisions'].includes(data.routing?.model)) break;
++      output.push({ specId: test.specId ?? '', project: test.project, label: advice.label,
++        answerConfidence: advice.answer_confidence, reviewRequired: advice.review_required,
++        checkpoint: data.routing.model, revision: data.runtime.revision, advisoryOnly: true, authorization: false });
++    }
++  } catch { /* Best effort; an unavailable classifier must not fail a QA run. */ }
++  return output.length ? output : undefined;
++}
+diff --git a/src/llm/systemOne.test.ts b/src/llm/systemOne.test.ts
+new file mode 100644
+--- /dev/null
++++ b/src/llm/systemOne.test.ts
+@@ -0,0 +1,50 @@
++import { test, afterEach } from 'node:test';
++import assert from 'node:assert/strict';
++import { systemOneAdvice, redactSystemOne } from './systemOne.js';
++import { ghostshield } from '../sites/ghostshield.js';
++import type { RunReport } from '../report/model.js';
++
++const originalFetch = globalThis.fetch;
++afterEach(() => {
++  globalThis.fetch = originalFetch;
++  for (const key of ['QA_LAYA_URL', 'QA_LAYA_API_KEY', 'QA_LAYA_MODEL']) delete process.env[key];
++});
++const report = { site: 'ghostshield', status: 'FAIL', tests: [{ specId: 'GS-018', title: 'trial',
++  project: 'desktop', outcome: 'failed', errors: ['expected trial, received paywall'] }] } as RunReport;
++
++test('new GhostShield contract requires explicit trial activation', () => {
++  assert.equal(ghostshield.signupGrantsTrial, false);
++});
++test('disabled adapter makes no network call', async () => {
++  globalThis.fetch = async () => { throw new Error('must not call'); };
++  assert.equal(await systemOneAdvice(report, ghostshield), undefined);
++});
++test('advice is projected without mutating test status or sending assessment labels', async () => {
++  process.env.QA_LAYA_URL = 'http://localhost:8000'; process.env.QA_LAYA_API_KEY = 'test-only';
++  const before = JSON.stringify(report);
++  globalThis.fetch = async (_url, options) => {
++    const body = String(options?.body);
++    assert.ok(body.includes('requires a credit card'));
++    assert.ok(!body.includes('classification'));
++    assert.equal(options?.redirect, 'error');
++    return new Response(JSON.stringify({ advice: { label: 'TEST_BUG', workflow: 'qa_cause', answer_confidence: .9,
++      review_required: false, advisory_only: true, authorization: false },
++      runtime: { device: 'cuda:0', revision: 'test' }, routing: { model: 'english' } }));
++  };
++  const hints = await systemOneAdvice(report, ghostshield);
++  assert.equal(hints?.[0]?.label, 'TEST_BUG');
++  assert.equal(hints?.[0]?.authorization, false);
++  assert.equal(JSON.stringify(report), before);
++});
++test('CPU or invalid responses never become report advice', async () => {
++  process.env.QA_LAYA_URL = 'http://localhost:8000'; process.env.QA_LAYA_API_KEY = 'test-only';
++  globalThis.fetch = async () => new Response(JSON.stringify({ advice: { label: 'PRODUCT_BUG', workflow: 'qa_cause',
++    answer_confidence: .9, review_required: false, advisory_only: true, authorization: false }, runtime: { device: 'cpu' } }));
++  assert.equal(await systemOneAdvice(report, ghostshield), undefined);
++});
++test('credentials and account identifiers are removed', () => {
++  const text = redactSystemOne('user@example.com password=secret bearer abcdefghijklmnopqrstuvwxyz123456789');
++  assert.ok(!text.includes('user@example.com'));
++  assert.ok(!text.includes('password=secret'));
++  assert.ok(!text.includes('abcdefghijklmnopqrstuvwxyz'));
++});
+diff --git a/scripts/replay-system-one.ts b/scripts/replay-system-one.ts
+new file mode 100644
+--- /dev/null
++++ b/scripts/replay-system-one.ts
+@@ -0,0 +1,19 @@
++/** Read-only evidence replay: no browser session, account creation, cleanup or notification. */
++import { readFileSync } from 'node:fs';
++import { systemOneAdvice } from '../src/llm/systemOne.js';
++import { ghostshield } from '../src/sites/ghostshield.js';
++import { totalguard } from '../src/sites/totalguard.js';
++import type { RunReport } from '../src/report/model.js';
++
++const paths = process.argv.slice(2);
++if (!paths.length) throw new Error('Pass one or more captured report.json files. Configure QA_LAYA_URL and QA_LAYA_API_KEY for this process.');
++const output = [];
++for (const path of paths) {
++  const report = JSON.parse(readFileSync(path, 'utf8')) as RunReport;
++  if (!['ghostshield', 'totalguard'].includes(report.site) || !Array.isArray(report.tests)) throw new Error('Unsupported report shape');
++  const before = JSON.stringify(report);
++  const hints = await systemOneAdvice(report, report.site === 'ghostshield' ? ghostshield : totalguard);
++  if (JSON.stringify(report) !== before) throw new Error('Shadow replay mutated the source report');
++  output.push({ runId: report.runId, status: report.status, hints: hints ?? [], sourceUnchanged: true });
++}
++console.log(JSON.stringify(output));
+diff --git a/docs/system-one-advice.md b/docs/system-one-advice.md
+new file mode 100644
+--- /dev/null
++++ b/docs/system-one-advice.md
+@@ -0,0 +1,17 @@
++# Optional local System One shadow advice
++
++Set `QA_LAYA_URL` and `QA_LAYA_API_KEY` in the trusted QA process to enable bounded local classifications. Default checkpoint: `english`; optional `QA_LAYA_MODEL`. `QA_LAYA_TIMEOUT_SECONDS` defaults to 2, bounded to 5 seconds. Disabled when URL/key are absent. Warm the explicit checkpoint before short-timeout calls; first use after a host-service restart can be much slower than resident inference.
++
++The adapter sends an explicit site contract and redacted failure facts, never the existing assessment classification, screenshots or full report. It adds optional `systemOneAdvice` to report.json. It does not feed reasoning triage, alter Playwright outcomes, change cleanup, or change notification policy. At most eight failed tests are considered; unavailable or invalid advice stops the branch without failing the QA run.
++
++GhostShield now requires a card to activate its trial. The site profile sets `signupGrantsTrial=false`, so GS-018 asserts that verification alone grants no entitlement. This is an explicit product-contract correction. It does not purchase a trial, test payment capture, or relax GS-027/028 app-token revocation assertions. The old QA audit showed all three Laya checkpoints wrongly choosing PRODUCT_BUG for that policy change; automated relabeling is not justified.
++
++Read-only replay:
++
++```powershell
++node --import tsx scripts/replay-system-one.ts <captured-report.json>
++```
++
++Configure the optional process environment first. Replay emits typed hints and checks the input report remains unchanged; it starts no browser session, account cleanup or notification. Common credential patterns are removed; only approved compact facts should be sent because heuristic redaction cannot guarantee removal of arbitrary confidential content.
++
++Guide: http://127.0.0.1:8000/docs/system-one-integrations.md. Benchmarks and four integration diagrams live in the sibling Laya repository under docs. These changes are local; rerun the approved deployed QA workflow separately to confirm the new contract against the current website revision.

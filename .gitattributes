@@ -1,0 +1,13 @@
+# Preserve generated artifact bytes and PDF offsets on Windows checkouts.
+*.pdf binary
+*.pptx binary
+*.png binary
+
+# These machine-readable artifacts carry byte hashes in their manifests.
+docs/benchmark/*.json text eol=lf
+docs/benchmark/*.sha256 text eol=lf
+docs/screenshots/manifest.json text eol=lf
+docs/presentation/v1/manifest.json text eol=lf
+
+# A blank unified-diff context line contains one required leading space.
+docs/benchmark/patches/*.patch -text whitespace=-blank-at-eol

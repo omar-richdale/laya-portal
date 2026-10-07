@@ -1,0 +1,22 @@
+# Laya Local
+
+> A local Python/PyTorch System One decision service running on an RTX 4050. It returns typed decisions, not generated text.
+
+- [Integration guide](/docs/agents.md): Authentication, HTTP/MCP examples, model selection and errors.
+- [Model capability guide](/docs/models.md): Per-checkpoint strengths, token budgets, architecture, languages, evidence and caveats.
+- [Model metadata JSON](/models.json): Versioned offline catalog; public learning data, no credentials or raw issue inputs.
+- [API contract](/docs/api.md): Request and response shapes, limits and endpoint behavior.
+- [Architecture](/docs/architecture.md): Shared worker, GPU-only policy, checkpoints and offline operation.
+- [Operations](/docs/operations.md): Manual start/stop, keys, saved defaults, LAN access and troubleshooting.
+- [Development](/docs/development.md): Build/test commands, live verification and reproducible screenshot capture.
+- [Verification](/docs/verification.md): Measured RTX 4050 results and acceptance checks.
+- [System One integrations](/docs/system-one-integrations.md): Fixed advisory workflows, opt-in native adapters, real-data replay and limits.
+- [OpenAPI schema](/openapi.json): Generated request schemas and HTTP bearer security.
+- [Interactive API docs](/docs): Swagger UI with locally served assets.
+
+Inference and runtime endpoints require Authorization: Bearer <LAYA_API_KEY>.
+API base: /api/v1. MCP Streamable HTTP endpoint: /mcp/.
+MCP integration resource: laya://integration.
+MCP learning resources: laya://models (JSON), laya://model-guide (Markdown). Tool: laya_model_info, optionally with a named checkpoint.
+Authenticated metadata: GET /api/v1/model-metadata or /api/v1/models/{model}/metadata. Reading metadata never loads a checkpoint.
+Only clients on this PC or the local network can reach the service. A cloud agent needs a network path; these documents do not make localhost accessible from the cloud.

@@ -1,0 +1,10 @@
+SLIDE NUMBER (bottom right): "09 / 12"
+ARCHETYPE: Architecture. Main solid line scanners to severity/intelligence to independent evidence verifier to issue lifecycle. Dashed branch from redacted candidate metadata to local Laya, returns only a small specialist hint card. Rose forbidden rail.
+
+TITLE, exact text: SIFT: TOPIC HINTS IN SHADOW
+
+MAIN LINE: Scanner findings → monotonic priority → independent verifier → GitHub lifecycle
+SHADOW BRANCH: Redacted metadata → typed-decisions → specialist hint event
+HINT EXAMPLES: Authentication/session · secret handling · code correctness
+APPLIED: Optional REVIEWER_LAYA_URL and REVIEWER_LAYA_API_KEY. Disabled by default; timeout falls back.
+NEVER: Downgrade severity, auto-suppress findings, replace evidence validation or log source excerpts.

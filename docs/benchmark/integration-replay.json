@@ -1,0 +1,305 @@
+{
+  "mode": "local read-only shadow replay",
+  "sift": [
+    {
+      "id": "VPN_website#150:specialist",
+      "reference": "code-correctness",
+      "hint": {
+        "label": "code-correctness",
+        "answer_confidence": 0.4339,
+        "review_required": true,
+        "advisory_only": true,
+        "authorization": false,
+        "checkpoint": "typed-decisions",
+        "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851"
+      },
+      "matches_reference": true
+    },
+    {
+      "id": "VPN_website#136:specialist",
+      "reference": "code-correctness",
+      "hint": {
+        "label": "code-correctness",
+        "answer_confidence": 0.4468,
+        "review_required": true,
+        "advisory_only": true,
+        "authorization": false,
+        "checkpoint": "typed-decisions",
+        "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851"
+      },
+      "matches_reference": true
+    },
+    {
+      "id": "VPN_website#76:specialist",
+      "reference": "crypto-secret-handling",
+      "hint": {
+        "label": "crypto-secret-handling",
+        "answer_confidence": 0.3651,
+        "review_required": true,
+        "advisory_only": true,
+        "authorization": false,
+        "checkpoint": "typed-decisions",
+        "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851"
+      },
+      "matches_reference": true
+    },
+    {
+      "id": "VPN_website#75:specialist",
+      "reference": "authentication-session",
+      "hint": {
+        "label": "authentication-session",
+        "answer_confidence": 0.2853,
+        "review_required": true,
+        "advisory_only": true,
+        "authorization": false,
+        "checkpoint": "typed-decisions",
+        "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851"
+      },
+      "matches_reference": true
+    },
+    {
+      "id": "VPN_website#68:specialist",
+      "reference": "crypto-secret-handling",
+      "hint": {
+        "label": "crypto-secret-handling",
+        "answer_confidence": 0.3152,
+        "review_required": true,
+        "advisory_only": true,
+        "authorization": false,
+        "checkpoint": "typed-decisions",
+        "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851"
+      },
+      "matches_reference": true
+    },
+    {
+      "id": "VPN_website#67:specialist",
+      "reference": "code-correctness",
+      "hint": {
+        "label": "code-correctness",
+        "answer_confidence": 0.4369,
+        "review_required": true,
+        "advisory_only": true,
+        "authorization": false,
+        "checkpoint": "typed-decisions",
+        "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851"
+      },
+      "matches_reference": true
+    },
+    {
+      "id": "VPN_website#55:specialist",
+      "reference": "crypto-secret-handling",
+      "hint": {
+        "label": "crypto-secret-handling",
+        "answer_confidence": 0.3152,
+        "review_required": true,
+        "advisory_only": true,
+        "authorization": false,
+        "checkpoint": "typed-decisions",
+        "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851"
+      },
+      "matches_reference": true
+    }
+  ],
+  "bugsmith": [
+    {
+      "id": "20260930-060000-9iy9o:GS-015",
+      "reference": "UNKNOWN",
+      "hint": {
+        "label": "PRODUCT_BUG",
+        "answer_confidence": 0.4944,
+        "review_required": true,
+        "advisory_only": true,
+        "authorization": false,
+        "checkpoint": "english",
+        "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851"
+      },
+      "matches_reference": false
+    },
+    {
+      "id": "20260930-060000-9iy9o:GS-018",
+      "reference": "TEST_BUG",
+      "hint": {
+        "label": "PRODUCT_BUG",
+        "answer_confidence": 0.5254,
+        "review_required": true,
+        "advisory_only": true,
+        "authorization": false,
+        "checkpoint": "english",
+        "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851"
+      },
+      "matches_reference": false
+    },
+    {
+      "id": "20260930-060000-9iy9o:GS-027",
+      "reference": "UNKNOWN",
+      "hint": {
+        "label": "PRODUCT_BUG",
+        "answer_confidence": 0.4429,
+        "review_required": true,
+        "advisory_only": true,
+        "authorization": false,
+        "checkpoint": "english",
+        "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851"
+      },
+      "matches_reference": false
+    },
+    {
+      "id": "20260930-071000-9o49u:GS-027",
+      "reference": "PRODUCT_BUG",
+      "hint": {
+        "label": "PRODUCT_BUG",
+        "answer_confidence": 0.5683,
+        "review_required": true,
+        "advisory_only": true,
+        "authorization": false,
+        "checkpoint": "english",
+        "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851"
+      },
+      "matches_reference": true
+    },
+    {
+      "id": "20260930-071000-9o49u:GS-028",
+      "reference": "PRODUCT_BUG",
+      "hint": {
+        "label": "PRODUCT_BUG",
+        "answer_confidence": 0.573,
+        "review_required": true,
+        "advisory_only": true,
+        "authorization": false,
+        "checkpoint": "english",
+        "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851"
+      },
+      "matches_reference": true
+    },
+    {
+      "id": "20260929-071000-wzuvk:GS-027",
+      "reference": "PRODUCT_BUG",
+      "hint": {
+        "label": "PRODUCT_BUG",
+        "answer_confidence": 0.6031,
+        "review_required": true,
+        "advisory_only": true,
+        "authorization": false,
+        "checkpoint": "english",
+        "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851"
+      },
+      "matches_reference": true
+    },
+    {
+      "id": "20260929-071000-wzuvk:GS-028",
+      "reference": "PRODUCT_BUG",
+      "hint": {
+        "label": "PRODUCT_BUG",
+        "answer_confidence": 0.554,
+        "review_required": true,
+        "advisory_only": true,
+        "authorization": false,
+        "checkpoint": "english",
+        "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851"
+      },
+      "matches_reference": true
+    }
+  ],
+  "qa": [
+    {
+      "runId": "20260930-060000-9iy9o",
+      "status": "FAIL",
+      "hints": [
+        {
+          "specId": "GS-015",
+          "project": "ghostshield-desktop",
+          "label": "PRODUCT_BUG",
+          "answerConfidence": 0.543,
+          "reviewRequired": true,
+          "checkpoint": "english",
+          "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851",
+          "advisoryOnly": true,
+          "authorization": false
+        },
+        {
+          "specId": "GS-018",
+          "project": "ghostshield-desktop",
+          "label": "PRODUCT_BUG",
+          "answerConfidence": 0.4787,
+          "reviewRequired": true,
+          "checkpoint": "english",
+          "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851",
+          "advisoryOnly": true,
+          "authorization": false
+        },
+        {
+          "specId": "GS-027",
+          "project": "ghostshield-desktop",
+          "label": "PRODUCT_BUG",
+          "answerConfidence": 0.4698,
+          "reviewRequired": true,
+          "checkpoint": "english",
+          "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851",
+          "advisoryOnly": true,
+          "authorization": false
+        }
+      ],
+      "sourceUnchanged": true
+    },
+    {
+      "runId": "20260930-071000-9o49u",
+      "status": "DEGRADED",
+      "hints": [
+        {
+          "specId": "GS-027",
+          "project": "totalguard-desktop",
+          "label": "PRODUCT_BUG",
+          "answerConfidence": 0.52,
+          "reviewRequired": true,
+          "checkpoint": "english",
+          "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851",
+          "advisoryOnly": true,
+          "authorization": false
+        },
+        {
+          "specId": "GS-028",
+          "project": "totalguard-desktop",
+          "label": "PRODUCT_BUG",
+          "answerConfidence": 0.4982,
+          "reviewRequired": true,
+          "checkpoint": "english",
+          "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851",
+          "advisoryOnly": true,
+          "authorization": false
+        }
+      ],
+      "sourceUnchanged": true
+    },
+    {
+      "runId": "20260929-071000-wzuvk",
+      "status": "DEGRADED",
+      "hints": [
+        {
+          "specId": "GS-027",
+          "project": "totalguard-desktop",
+          "label": "PRODUCT_BUG",
+          "answerConfidence": 0.5577,
+          "reviewRequired": true,
+          "checkpoint": "english",
+          "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851",
+          "advisoryOnly": true,
+          "authorization": false
+        },
+        {
+          "specId": "GS-028",
+          "project": "totalguard-desktop",
+          "label": "PRODUCT_BUG",
+          "answerConfidence": 0.5276,
+          "reviewRequired": true,
+          "checkpoint": "english",
+          "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851",
+          "advisoryOnly": true,
+          "authorization": false
+        }
+      ],
+      "sourceUnchanged": true
+    }
+  ],
+  "resident_after": "english",
+  "saved_default_after": "auto"
+}

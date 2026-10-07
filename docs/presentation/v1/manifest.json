@@ -1,0 +1,114 @@
+{
+  "slides": [
+    {
+      "slide": "01",
+      "path": "out/01.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "455a99cec3815806b9bab90dfd9d04cd2123f6be16663fc8008e1f204ba8b30a"
+    },
+    {
+      "slide": "02",
+      "path": "out/02.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "c4b26de54e17741d34aeddafd0a4aa201759500e9c7699a50278edb0557145dc"
+    },
+    {
+      "slide": "03",
+      "path": "out/03.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "55d37f1b3202f2c83e22f026b4d5dfaa4e1262d7136a09d50dec11a81917f184"
+    },
+    {
+      "slide": "04",
+      "path": "out/04.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "d7cc9758c9a88ab75c1eac106497fc232759a4a881a4befc03383173b9749eba"
+    },
+    {
+      "slide": "05",
+      "path": "out/05.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "32cad011c750c8e1f6ace514cb706c3b0e28ce037b513e67abd6a5212db8ada7"
+    },
+    {
+      "slide": "06",
+      "path": "out/06.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "3bb759b583a0dd1b87d705390222cfb6d3b0cf232d0db5a4a1d788f3d24c5734"
+    },
+    {
+      "slide": "07",
+      "path": "out/07.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "408c3f9f9bcd7675b9b44dcc90f8d912531ea6b525cf8748117ab00408c91308"
+    },
+    {
+      "slide": "08",
+      "path": "out/08.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "6ddf9ee96c5f572ebbf442840a73bfa5610f189b5b42da7d4247d3e05b6a5e00"
+    },
+    {
+      "slide": "09",
+      "path": "out/09.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "e30d3329f88b5d1ab0ef07c4539d2cf6893ef38221d964fde6210dafd281d55b"
+    },
+    {
+      "slide": "10",
+      "path": "out/10.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "cf2f23d906b68236bbd5e0e692016a11161ecb2b1cd0314408bb6da81b91d959"
+    },
+    {
+      "slide": "11",
+      "path": "out/11.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "4d423ef1fcda7c698fdef01b6677a4337a03343db1c5b5086a1b6347d0ff9234"
+    },
+    {
+      "slide": "12",
+      "path": "out/12.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "360f1fa8afd6e7d95254f1e51da5804ec64e9f2d420572851953c6337a105d88"
+    }
+  ],
+  "format": "complete generated slide images; raster text",
+  "style_reference": "sift/docs/presentation/v3"
+}

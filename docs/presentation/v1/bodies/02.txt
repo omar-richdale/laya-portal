@@ -1,0 +1,10 @@
+SLIDE NUMBER (bottom right): "02 / 12"
+ARCHETYPE: Inventory. Two repository cards above four horizontal category bars. Emphasize the dependency bar in amber. No pie chart.
+
+TITLE, exact text: THE REAL WORKLOAD
+
+LEFT CARD: GhostShield · 134 open issues
+RIGHT CARD: TotalGuard · 99 open issues
+BARS: 196 dependency findings; 22 credential-related findings; 5 source-code findings; 10 business reports
+FOOTNOTE: Semantic work categories: two SAST credential findings join the 20 secret findings. Snapshot: 01 Oct 2026.
+CALLOUT: Seven QA observations from three reports; repeated failures are not independent bugs.

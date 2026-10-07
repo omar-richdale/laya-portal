@@ -1,0 +1,169 @@
+diff --git a/deploy/reviewer/sift_reviewer/engine.py b/deploy/reviewer/sift_reviewer/engine.py
+index 8ef60cc..e94edee 100644
+--- a/deploy/reviewer/sift_reviewer/engine.py
++++ b/deploy/reviewer/sift_reviewer/engine.py
+@@ -41,6 +41,7 @@ from .schemas import (
+ )
+ from .settings import Settings
+ from .skills import SkillRegistry
++from .system_one import hint as system_one_hint
+ 
+ ATTACK_CLASSES: dict[str, tuple[str, ...]] = {
+     "injection": (r"(?i)(query|execute|exec|command|subprocess|rawsql)",),
+@@ -972,6 +973,8 @@ class ReviewEngine:
+         budget_exhausted = False
+         suppressed = {item.key(): item for item in request.suppressions}
+         total = len(state["raw_candidates"])
++        shadow_unavailable = False
++        shadow_calls = 0
+         for index, claim in enumerate(state["raw_candidates"]):
+             handle = candidate_id(claim, index)
+             spans = claim.get("evidence", [])
+@@ -995,6 +998,18 @@ class ReviewEngine:
+                 tasks.append(TaskResult(id=task_id, role="verifier", attack_class=claim["attack_class"], status="skipped", summary={"verdict": "rejected", "reason": "mechanical evidence validation failed"}))
+                 self.emit(request.run_id, "guard", guard="evidence_validation", candidate_id=handle, outcome="quoted evidence did not match the file at the cited span")
+             else:
++                # Topic advice is an opt-in shadow measurement. It never edits the
++                # candidate, verifier objective, severity, suppression or tool policy.
++                if not shadow_unavailable and shadow_calls < 8:
++                    shadow_calls += 1
++                    hint = await asyncio.to_thread(system_one_hint, {
++                        "title": claim["title"], "cwe": claim.get("cwe", ""),
++                        "root_cause": claim["root_cause"], "sink": claim["sink"],
++                    })
++                    if hint is None:
++                        shadow_unavailable = True
++                    else:
++                        self.emit(request.run_id, "system_one_hint", candidate_id=handle, **hint)
+                 task_id = uuid4()
+                 try:
+                     output, hashes = await self.invoke(attack_class=claim["attack_class"], role="independent-verifier", model_alias=self.settings.verifier_model, schema=VerificationOutput, skill_names=("verifier.md",), objective="Disprove or verify this candidate using the repository tools. Candidate: " + json.dumps(claim, separators=(",", ":")) + self.suppression_brief(request), repository=repository, task_id=task_id, reservation=350_000, source_skills=("security-audit/VALIDATION-AND-REPORTING.md", "security-review/SKILL.md"), skill_keywords=("validate", "disprove", "confidence", "evidence", "false positive", "impact"))
+diff --git a/deploy/reviewer/tests/test_suppressions.py b/deploy/reviewer/tests/test_suppressions.py
+index f8ec6fd..6893a4f 100644
+--- a/deploy/reviewer/tests/test_suppressions.py
++++ b/deploy/reviewer/tests/test_suppressions.py
+@@ -91,3 +91,25 @@ def test_suppression_brief_reaches_the_model_and_is_scoped_by_class() -> None:
+     scoped = engine.suppression_brief(request, "injection")
+     assert "allowlisted enum" in scoped and "output is escaped" not in scoped
+     assert engine.suppression_brief(cast(Any, type("R", (), {"suppressions": []})())) == ""
++
++
++@pytest.mark.asyncio
++async def test_shadow_hint_cannot_change_verdict_or_verifier_context(monkeypatch):
++    import sift_reviewer.engine as module
++    from sift_reviewer.schemas import VerificationOutput
++    engine, _, state = engine_with([])
++    events = []
++    engine.emit = lambda run_id, kind, **data: events.append((kind, data))
++    monkeypatch.setattr(module, "system_one_hint", lambda state: {
++        "label": "other", "answer_confidence": .99, "review_required": False,
++        "advisory_only": True, "authorization": False, "checkpoint": "typed-decisions", "revision": "test"})
++    async def fake_invoke(**kwargs):
++        assert kwargs["attack_class"] == "injection"
++        assert '"quote":"q"' in kwargs["objective"]
++        assert "typed-decisions" not in kwargs["objective"]
++        return VerificationOutput(verdict="needs_human", confidence="medium", reason="independent evidence needed", corrected_severity="high"), {}
++    engine.invoke = fake_invoke
++    result = await engine.verify({**state, "raw_candidates": [claim()]})
++    assert result["candidates"][0].verdict == "needs_human"
++    assert result["candidates"][0].severity == "high"
++    assert [data for kind, data in events if kind == "system_one_hint"][0]["label"] == "other"
+diff --git a/.gitattributes b/.gitattributes
+new file mode 100644
+--- /dev/null
++++ b/.gitattributes
+@@ -0,0 +1,2 @@
++# Source-skill manifests hash exact bytes; Windows checkout conversion must not change them.
++docs/assets/skills/** text eol=lf
+diff --git a/deploy/reviewer/sift_reviewer/system_one.py b/deploy/reviewer/sift_reviewer/system_one.py
+new file mode 100644
+--- /dev/null
++++ b/deploy/reviewer/sift_reviewer/system_one.py
+@@ -0,0 +1,69 @@
++"""Optional local System One hints; existing evidence and policy remain authoritative."""
++import json
++import math
++import os
++import re
++from urllib.error import HTTPError, URLError
++from urllib.parse import urlsplit
++from urllib.request import Request, HTTPRedirectHandler, build_opener
++
++PREFIX = "REVIEWER_LAYA"
++WORKFLOW = "security_specialist"
++DEFAULT_MODEL = "typed-decisions"
++LABELS = ['authentication-session', 'code-correctness', 'crypto-secret-handling', 'other']
++
++
++def redact(value):
++    """Project text only after removing common credential forms and identifiers."""
++    text = str(value)
++    text = re.sub(r"\x1b\[[0-9;]*m", "", text)
++    text = re.sub(r"[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}", "[email]", text)
++    text = re.sub(r"(?i)(bearer\s+)[^\s\"']+", r"\1[redacted]", text)
++    text = re.sub(r"(?i)((?:password|secret|api[_-]?key|access[_-]?token|token)\s*[=:]\s*)[^\s,;]+", r"\1[redacted]", text)
++    text = re.sub(r"[A-Za-z0-9_+/=-]{32,}", "[redacted-long-value]", text)
++    return text[:550]
++
++
++class NoRedirect(HTTPRedirectHandler):
++    def redirect_request(self, *args, **kwargs):
++        return None
++
++
++def hint(state):
++    """Return validated advice or None, with no requests unless explicitly configured."""
++    url, key = os.getenv(PREFIX + "_URL", ""), os.getenv(PREFIX + "_API_KEY", "")
++    if not url or not key:
++        return None
++    try:
++        parsed = urlsplit(url)
++        if parsed.scheme not in ("http", "https") or not parsed.hostname or parsed.username or parsed.password or parsed.query or parsed.fragment:
++            return None
++        model = os.getenv(PREFIX + "_MODEL", DEFAULT_MODEL)
++        if model not in ("auto", "english", "multilingual", "typed-decisions"):
++            return None
++        timeout = float(os.getenv(PREFIX + "_TIMEOUT_SECONDS", "2"))
++        if not math.isfinite(timeout) or not 0 < timeout <= 5:
++            return None
++        payload = {"state": {k: redact(v) for k, v in state.items()}, "model": model, "min_confidence": .8}
++        request = Request(url.rstrip("/") + "/api/v1/workflows/" + WORKFLOW,
++                          data=json.dumps(payload).encode(), headers={"Authorization": "Bearer " + key, "Content-Type": "application/json"})
++        with build_opener(NoRedirect()).open(request, timeout=timeout) as response:
++            data = json.loads(response.read(65537))
++        if not isinstance(data, dict) or not all(isinstance(data.get(k), dict) for k in ("advice", "runtime", "routing")):
++            return None
++        advice = data["advice"]
++        confidence = advice["answer_confidence"]
++        if (advice.get("advisory_only") is not True or advice.get("authorization") is not False
++                or advice.get("workflow") != WORKFLOW or advice.get("label") not in LABELS
++                or isinstance(confidence, bool) or not isinstance(confidence, (int, float))
++                or not math.isfinite(confidence) or not 0 <= confidence <= 1
++                or not isinstance(advice.get("review_required"), bool)
++                or data["runtime"].get("device") != "cuda:0"
++                or data["routing"].get("model") not in ("english", "multilingual", "typed-decisions")
++                or not isinstance(data["runtime"].get("revision"), str)):
++            return None
++        return {"label": advice["label"], "answer_confidence": confidence,
++                "review_required": advice["review_required"], "advisory_only": True, "authorization": False,
++                "checkpoint": data["routing"]["model"], "revision": data["runtime"]["revision"]}
++    except (OSError, HTTPError, URLError, ValueError, KeyError, TypeError):
++        return None
+diff --git a/docs/system-one-advice.md b/docs/system-one-advice.md
+new file mode 100644
+--- /dev/null
++++ b/docs/system-one-advice.md
+@@ -0,0 +1,13 @@
++# Optional local Laya shadow advice
++
++The Python reviewer can request bounded specialist-topic hints from the existing local Laya service after mechanically validating a candidate. It emits `system_one_hint` progress metadata. It does not edit the claim, attack class, verifier prompt, verdict, severity, suppression policy or review budget. No raw source excerpts, prompts or classifier response are logged.
++
++Set `REVIEWER_LAYA_URL` and `REVIEWER_LAYA_API_KEY` in the trusted reviewer process to enable it. Default checkpoint: `typed-decisions`; optional `REVIEWER_LAYA_MODEL`. `REVIEWER_LAYA_TIMEOUT_SECONDS` defaults to 2, with a maximum of 5. Only eight shadow calls per verification stage; unavailable or invalid advice stops the branch. Leave the variables unset to disable it. Keys must not enter agent prompts or tool environments. Use a reachable host/LAN URL for container deployments; container localhost is not the Windows GPU host.
++
++The client removes common credential forms and sends only bounded candidate metadata, never evidence quotes. Approve the metadata projection for the deployment: heuristic redaction does not prove absence of every confidential value. Existing independent verification stays authoritative. Warm the explicit checkpoint before short-timeout requests; process initialization can exceed the client timeout.
++
++Local evaluation matched seven of seven topic references with typed-decisions, all below the illustrative 0.8 confidence threshold. This small corpus does not validate automatic specialist reassignment or vulnerability verification. Scanner labels and deterministic priorities take precedence.
++
++Full guide: http://127.0.0.1:8000/docs/system-one-integrations.md while the host service is running. Frozen results live in the sibling Laya project, `docs/benchmark/REPORT.md`. Production deployment remains separate from this local change.
++
++Source-skill manifests hash bytes. The scoped `.gitattributes` rule preserves LF under `docs/assets/skills`; Windows CRLF conversion otherwise breaks the existing manifest check. The original expected hashes remain intact.

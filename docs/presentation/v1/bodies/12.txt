@@ -1,0 +1,13 @@
+SLIDE NUMBER (bottom right): "12 / 12"
+ARCHETYPE: Rollout. Three numbered cards connected left to right, then a four-line delivery list. Single amber emphasis on independent evaluation, no unmeasured savings claim.
+
+TITLE, exact text: START WITH MEASURED ADVICE
+
+STEP 1: Enable optional shadow adapters locally
+STEP 2: Compare advice against independent evidence
+STEP 3: Expand the evaluation before any automated gate
+DELIVERED: Real-data corpus and GPU measurements
+DELIVERED: Portal examples and advisory HTTP workflows
+DELIVERED: Three optional repository adapters and QA contract correction
+DELIVERED: Four diagrams, reproducible prompts and this deck
+FINAL LINE: Fast decisions help organize investigation. Evidence and policy control action.

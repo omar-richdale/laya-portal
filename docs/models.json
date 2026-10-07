@@ -1,0 +1,621 @@
+{
+  "schema_version": "1.0",
+  "reviewed_at": "2026-10-01",
+  "checkpoint_revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851",
+  "family": {
+    "name": "Laya System One",
+    "description": "A bidirectional encoder and decision head score request-defined options in one forward pass. Outputs are choice, ordinal score or yes-probability; no generated prose, code patches or free-form extraction.",
+    "question_types": [
+      {
+        "type": "choice",
+        "meaning": "Selects the highest-probability key from your criteria object; returns per-key probabilities.",
+        "example": "billing / technical / sales"
+      },
+      {
+        "type": "score",
+        "meaning": "Returns the expected zero-based ordinal level, potentially fractional, plus level probabilities and legend; not a free-form numeric calculation.",
+        "example": "0 = routine, 1 = soon, 2 = blocking"
+      },
+      {
+        "type": "noul",
+        "meaning": "Returns P(true) between 0 and 1; no criteria or custom boolean labels are accepted by this hosted API.",
+        "example": "Does this ticket explicitly request a refund?"
+      }
+    ],
+    "training": "Upstream describes RLCD reinforcement learning for decision distributions; typed-decisions adds domain fine-tuning. A probability-oriented training objective does not establish calibration on your data.",
+    "source_ids": [
+      "family",
+      "sdk"
+    ]
+  },
+  "service": {
+    "runtime": "Python 3.12 / PyTorch 2.10.0+cu128 / Laya 0.3.22 / Transformers 4.57.6",
+    "device_policy": "CUDA only; no CPU retry. One checkpoint resident; one serialized worker. Compilation and TileLang disabled.",
+    "routing": "auto selects English or multilingual using upstream language/script heuristics; typed-decisions requires explicit selection. Omitted model uses saved default. Per-request model never changes it.",
+    "limits": {
+      "max_questions": 64,
+      "max_choice_options": 100,
+      "max_score_levels": 32,
+      "max_total_options": 512,
+      "max_state_serialized_characters": 50000,
+      "max_batch_requests": 32,
+      "max_microbatch_states": 2,
+      "max_outstanding_jobs": 8,
+      "max_body_bytes": 4194304
+    },
+    "token_notes": [
+      "Tokens are tokenizer pieces, not words or characters. JSON keys, punctuation, instructions and choice descriptions count.",
+      "max_len covers the full sequence for each question. head_max_len budgets question/options within it. Approximate state room assumes a full head; actual room varies with formatting and special markers.",
+      "Long text/objects retain their beginning; JSON conversation lists retain the end. Check usage.truncated, state_tokens_dropped and truncated_questions before relying on a decision.",
+      "Each option description is initially capped at 48 tokens in the pinned runtime; crowded choices can be shortened further. Inspect option-distinctness warnings. Increasing total context alone does not expand the choice budget.",
+      "The API validates head_max_len < max_len - 8. max_len can be 64..8192 globally, but the selected checkpoint's smaller hosted cap still applies.",
+      "auto with a large context can route to English and be rejected. Explicitly choose multilingual for max_len above 1024.",
+      "Accepted limits are not throughput/VRAM guarantees. More questions, options, longer contexts and batches increase memory and latency."
+    ],
+    "confidence_notes": [
+      "answer_confidence is the largest option probability. For noul this is max(P(true), 1-P(true)). For score it refers to a modal level, not a guarantee that the fractional expected score is correct.",
+      "Legacy confidence on choice/score is normalized entropy and is not the same quantity. action.act_probability is learned act/escalate evidence, not tool authorization.",
+      "min_confidence only adds low_confidence=true below your threshold; it keeps the answer and does not enforce review or block execution. Fixed workflow adapters separately attach advisory review metadata.",
+      "Our fixed workflows use 0.8 for review, but that threshold has not been calibrated for production. All seven real QA cases and all seven typed security-topic cases required review."
+    ],
+    "usage_tips": [
+      "Supply only relevant, redacted evidence and a trusted product contract. Give a clear decision question and distinct short descriptions.",
+      "Prefer a small shortlist; include unknown/review where the task allows it. Use neutral A/B keys to cross-check unreliable yes/no answers.",
+      "Test wording, option order and each question type on held-out domain data; probabilities can be confident and wrong.",
+      "Keep scanner facts, application permissions and test outcomes authoritative. Prompt-injection and misalignment screening are candidate advisory experiments, not proven defenses."
+    ],
+    "unexposed_upstream_features": [
+      "predict_long sliding-window aggregation",
+      "decide JSON Schema / Pydantic convenience methods",
+      "arbitrary Python hooks, custom noul labels and lang/lang_guess request controls",
+      "fine-tuning or calibration training endpoints"
+    ],
+    "errors": "401 authentication; 422 validation/budget; 503 busy with Retry-After: 2 or runtime/GPU errors. Inspect error.code; only queue saturation warrants an unchanged automatic retry.",
+    "privacy": "Inference is local and offline after setup. Portal keys are tab-scoped; inputs/results stay in browser memory unless exported. Runtime logs may contain model/error diagnostics. Metadata fetches do not load a checkpoint.",
+    "source_ids": [
+      "sdk",
+      "limits",
+      "adoption",
+      "structured"
+    ]
+  },
+  "models": [
+    {
+      "id": "english",
+      "title": "English",
+      "summary": "Start here for short English tickets and bounded classification questions.",
+      "languages": {
+        "primary": "English",
+        "examples": [
+          "en"
+        ],
+        "coverage": "Prefer multilingual for non-English input; English confidence can remain high on an unreadable language."
+      },
+      "good_at": [
+        "English email or support-ticket routing",
+        "Small-label intent, topic and sentiment decisions",
+        "Candidate guardrail signals, evaluated on your own examples"
+      ],
+      "local_recommendation": "Best issue-lane agreement in our English backlog snapshot. Existing scanner metadata is still the first routing source.",
+      "caveats": [
+        "Stored choice:11+ temperature is 0.10058; Laya 0.3.22 clamps it to 0.5 and emits a warning.",
+        "A confident output can still be wrong. Our synthetic action-alignment examples matched only 1/6 references.",
+        "Our real QA cases matched 4/7; it missed the card-required trial contract."
+      ],
+      "source_ids": [
+        "family",
+        "limits",
+        "config-english"
+      ],
+      "upstream_evidence": {
+        "description": "The family card recommends English classification, guardrails and email triage. Those are candidate uses, not validated security guarantees.",
+        "metrics": [],
+        "source_ids": [
+          "family"
+        ]
+      },
+      "example": {
+        "state": "I was charged twice for my VPN subscription. Please refund the duplicate payment.",
+        "questions": {
+          "team": {
+            "type": "choice",
+            "instructions": "Which team should review this ticket?",
+            "criteria": {
+              "A": "billing: invoices, duplicate payments or refund requests",
+              "B": "technical support: broken apps or connectivity",
+              "C": "sales: pricing or new subscriptions"
+            }
+          }
+        },
+        "model": "english",
+        "min_confidence": 0.8
+      },
+      "identity": {
+        "repository": "convaiinnovations/laya",
+        "subfolder": null,
+        "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851",
+        "license": "Apache-2.0",
+        "knowledge_cutoff": "Not published; use supplied evidence rather than assuming up-to-date knowledge."
+      },
+      "architecture": {
+        "backbone": "answerdotai/ModernBERT-large",
+        "parameters_approx_millions": 421,
+        "stored_tensor_elements": 421293830,
+        "encoder_layers": 28,
+        "hidden_size": 1024,
+        "attention_heads": 16,
+        "vocabulary_size": 50368,
+        "decision_head_layers": 2,
+        "encoder_position_capacity": 8192,
+        "weights_bytes": 842609210,
+        "stored_tensor_dtypes": [
+          "F16",
+          "F32"
+        ],
+        "cuda_autocast": "bf16",
+        "parameter_note": "Approximate model size from upstream; exact stored tensor elements are counted from the local safetensors header and can include buffers."
+      },
+      "tokens": {
+        "default_total": 512,
+        "default_question": 192,
+        "approx_state_before_formatting": 320,
+        "hosted_max_total": 512,
+        "encoder_max_positions": 8192,
+        "head_override_max": 1024,
+        "option_description_token_cap": 48,
+        "recommended_max_choices": 20,
+        "output_tokens": 0
+      },
+      "local_evidence": {
+        "recorded_on": "2026-10-01",
+        "device": "NVIDIA GeForce RTX 4050 Laptop GPU / cuda:0",
+        "max_len": 512,
+        "head_max_len": 192,
+        "repeats": 3,
+        "quality": {
+          "issue_lane": {
+            "count": 233,
+            "correct": 225,
+            "review": 204,
+            "high_confidence_wrong": 0,
+            "agreement": 0.9657,
+            "macro_f1": 0.7222
+          },
+          "qa_cause": {
+            "count": 7,
+            "correct": 4,
+            "review": 7,
+            "high_confidence_wrong": 0,
+            "agreement": 0.5714,
+            "macro_f1": 0.2424
+          },
+          "security_specialist": {
+            "count": 7,
+            "correct": 4,
+            "review": 7,
+            "high_confidence_wrong": 0,
+            "agreement": 0.5714,
+            "macro_f1": 0.3889
+          }
+        },
+        "service_ms": {
+          "median": 61.53,
+          "p95": 76.52
+        },
+        "http_ms": {
+          "median": 64.36,
+          "p95": 80.38
+        },
+        "batch": {
+          "states": 32,
+          "microbatch": 2,
+          "median_ms": 1132.47,
+          "states_per_second": 28.26
+        },
+        "fresh_process_first_service_ms": 7027.08,
+        "fresh_process_load_ms": 6448.45,
+        "fresh_process_peak_allocated_bytes": 2454071296,
+        "method": "247 unique cases: 233 issue lanes, seven security topics, seven QA observations. Three repeated passes; quality uses first pass. Fixed label order. Reference agreement, not independent vulnerability or production accuracy. All three missed the card-required trial. Baseline: always dependency matches 196/233 (84.12%). Startup is one fresh-process sample, not a percentile or cold boot. Allocator peak excludes other processes and CUDA/display overhead."
+      },
+      "metadata_url": "/api/v1/models/english/metadata"
+    },
+    {
+      "id": "multilingual",
+      "title": "Multilingual",
+      "summary": "Use for French, Arabic and other languages, or longer compact evidence.",
+      "languages": {
+        "primary": "Multilingual",
+        "examples": [
+          "en",
+          "fr",
+          "ar",
+          "es",
+          "de",
+          "pt",
+          "it",
+          "hi",
+          "zh",
+          "ja",
+          "ko",
+          "tr",
+          "ru"
+        ],
+        "coverage": "Upstream claims 100+ languages; coverage and accuracy vary by language and task. Our backlog benchmark was English, not a multilingual-quality evaluation."
+      },
+      "good_at": [
+        "Routing and classification of non-English tickets",
+        "French or Arabic support queues with English question descriptions",
+        "Longer state inputs when essential evidence does not fit the shorter checkpoints"
+      ],
+      "local_recommendation": "Use for language coverage. It was fastest in our compact benchmark, but less accurate on the English backlog.",
+      "caveats": [
+        "Pinned config has temperatures [1, 1, 1] and no option-count buckets: it ships without fitted calibration.",
+        "A longer accepted context is not proof of long-document accuracy or safe memory use.",
+        "Our real QA cases matched 0/7; two issue-lane mistakes exceeded the 0.8 review threshold."
+      ],
+      "source_ids": [
+        "multilingual",
+        "limits",
+        "config-multilingual"
+      ],
+      "upstream_evidence": {
+        "description": "The model card describes 100+ languages and a 1,024-token default expandable to 8,192. Coverage does not guarantee useful accuracy in every language. Published language-sweep numbers have been revised; consult the current benchmark's correction notes.",
+        "metrics": [],
+        "source_ids": [
+          "multilingual",
+          "benchmarks"
+        ]
+      },
+      "example": {
+        "state": "تم تحصيل رسوم اشتراك VPN مرتين. أرجو إعادة المبلغ المكرر.",
+        "questions": {
+          "team": {
+            "type": "choice",
+            "instructions": "Which team should review this Arabic ticket?",
+            "criteria": {
+              "A": "billing: duplicate charges and refunds",
+              "B": "technical support: connection failures",
+              "C": "sales: new subscriptions"
+            }
+          }
+        },
+        "model": "multilingual",
+        "min_confidence": 0.8
+      },
+      "identity": {
+        "repository": "convaiinnovations/laya",
+        "subfolder": "multilingual",
+        "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851",
+        "license": "Apache-2.0",
+        "knowledge_cutoff": "Not published; use supplied evidence rather than assuming up-to-date knowledge."
+      },
+      "architecture": {
+        "backbone": "jhu-clsp/mmBERT-base",
+        "parameters_approx_millions": 322,
+        "stored_tensor_elements": 321908998,
+        "encoder_layers": 22,
+        "hidden_size": 768,
+        "attention_heads": 12,
+        "vocabulary_size": 256000,
+        "decision_head_layers": 2,
+        "encoder_position_capacity": 8192,
+        "weights_bytes": 643835514,
+        "stored_tensor_dtypes": [
+          "F16",
+          "F32"
+        ],
+        "cuda_autocast": "bf16",
+        "parameter_note": "Approximate model size from upstream; exact stored tensor elements are counted from the local safetensors header and can include buffers."
+      },
+      "tokens": {
+        "default_total": 1024,
+        "default_question": 256,
+        "approx_state_before_formatting": 768,
+        "hosted_max_total": 8192,
+        "encoder_max_positions": 8192,
+        "head_override_max": 1024,
+        "option_description_token_cap": 48,
+        "recommended_max_choices": 20,
+        "output_tokens": 0
+      },
+      "local_evidence": {
+        "recorded_on": "2026-10-01",
+        "device": "NVIDIA GeForce RTX 4050 Laptop GPU / cuda:0",
+        "max_len": 512,
+        "head_max_len": 192,
+        "repeats": 3,
+        "quality": {
+          "issue_lane": {
+            "count": 233,
+            "correct": 170,
+            "review": 228,
+            "high_confidence_wrong": 2,
+            "agreement": 0.7296,
+            "macro_f1": 0.6202
+          },
+          "qa_cause": {
+            "count": 7,
+            "correct": 0,
+            "review": 7,
+            "high_confidence_wrong": 0,
+            "agreement": 0.0,
+            "macro_f1": 0.0
+          },
+          "security_specialist": {
+            "count": 7,
+            "correct": 3,
+            "review": 4,
+            "high_confidence_wrong": 0,
+            "agreement": 0.4286,
+            "macro_f1": 0.2
+          }
+        },
+        "service_ms": {
+          "median": 51.43,
+          "p95": 67.56
+        },
+        "http_ms": {
+          "median": 54.4,
+          "p95": 70.95
+        },
+        "batch": {
+          "states": 32,
+          "microbatch": 2,
+          "median_ms": 900.52,
+          "states_per_second": 35.54
+        },
+        "fresh_process_first_service_ms": 9003.82,
+        "fresh_process_load_ms": 8380.26,
+        "fresh_process_peak_allocated_bytes": 1588614144,
+        "method": "247 unique cases: 233 issue lanes, seven security topics, seven QA observations. Three repeated passes; quality uses first pass. Fixed label order. Reference agreement, not independent vulnerability or production accuracy. All three missed the card-required trial. Baseline: always dependency matches 196/233 (84.12%). Startup is one fresh-process sample, not a percentile or cold boot. Allocator peak excludes other processes and CUDA/display overhead."
+      },
+      "metadata_url": "/api/v1/models/multilingual/metadata"
+    },
+    {
+      "id": "typed-decisions",
+      "title": "Typed decisions",
+      "summary": "An English specialist for invoice, security, support and agent-trace decisions.",
+      "languages": {
+        "primary": "English",
+        "examples": [
+          "en"
+        ],
+        "coverage": "Upstream documents English-only fine-tuning; choose multilingual for other languages."
+      },
+      "good_at": [
+        "Invoice-processing decisions with fixed fields or categories",
+        "Security-incident and customer-service triage",
+        "Agent-trace observability: choosing among a small set of known outcomes"
+      ],
+      "local_recommendation": "Promising for security-topic hints: 7/7 references in our small sample, all below the 0.8 review threshold. This does not establish reliable prompt-injection detection or action authorization.",
+      "caveats": [
+        "Specialized on four synthetic workflows; transfer to new domains is unproven.",
+        "Inherited option-count temperatures override per-type values. The stored choice:11+ bucket also requires the runtime clamp.",
+        "Upstream warns its per-type calibration used training items. Treat current probabilities as uncalibrated for your domain.",
+        "Our QA cases matched 4/7 and missed the card-required trial; synthetic action alignment matched 1/6."
+      ],
+      "source_ids": [
+        "typed",
+        "limits",
+        "config-typed-decisions"
+      ],
+      "upstream_evidence": {
+        "description": "Upstream reports fine-tuning on 1,200 training cases (6,000 decisions), then 400 test cases (2,000 decisions) across four workflows. This is a benchmark-specific specialist result, not general production accuracy. Its confidence needs independent held-out calibration.",
+        "metrics": [
+          {
+            "name": "Typed-decisions accuracy",
+            "value": 0.766
+          },
+          {
+            "name": "Invoice processing accuracy",
+            "value": 0.804
+          },
+          {
+            "name": "Security incidents accuracy",
+            "value": 0.766
+          },
+          {
+            "name": "Customer service accuracy",
+            "value": 0.764
+          },
+          {
+            "name": "Agent-trace accuracy",
+            "value": 0.73
+          },
+          {
+            "name": "Expected calibration error (lower is better)",
+            "value": 0.213
+          }
+        ],
+        "source_ids": [
+          "typed"
+        ]
+      },
+      "example": {
+        "state": {
+          "incident": "A deployment used a token that was revoked. The API returned 401. No successful access is recorded.",
+          "evidence": "revoked-token request rejected"
+        },
+        "questions": {
+          "topic": {
+            "type": "choice",
+            "instructions": "Which specialist should inspect this incident? Do not infer a successful attack without evidence.",
+            "criteria": {
+              "A": "authentication and session handling",
+              "B": "billing and invoice processing",
+              "C": "network availability"
+            }
+          }
+        },
+        "model": "typed-decisions",
+        "min_confidence": 0.8
+      },
+      "identity": {
+        "repository": "convaiinnovations/laya",
+        "subfolder": "typed-decisions",
+        "revision": "55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851",
+        "license": "Apache-2.0",
+        "knowledge_cutoff": "Not published; use supplied evidence rather than assuming up-to-date knowledge."
+      },
+      "architecture": {
+        "backbone": "answerdotai/ModernBERT-large",
+        "parameters_approx_millions": 421,
+        "stored_tensor_elements": 421293830,
+        "encoder_layers": 28,
+        "hidden_size": 1024,
+        "attention_heads": 16,
+        "vocabulary_size": 50368,
+        "decision_head_layers": 2,
+        "encoder_position_capacity": 8192,
+        "weights_bytes": 842609220,
+        "stored_tensor_dtypes": [
+          "F16"
+        ],
+        "cuda_autocast": "bf16",
+        "parameter_note": "Approximate model size from upstream; exact stored tensor elements are counted from the local safetensors header and can include buffers."
+      },
+      "tokens": {
+        "default_total": 1024,
+        "default_question": 256,
+        "approx_state_before_formatting": 768,
+        "hosted_max_total": 1024,
+        "encoder_max_positions": 8192,
+        "head_override_max": 1024,
+        "option_description_token_cap": 48,
+        "recommended_max_choices": 20,
+        "output_tokens": 0
+      },
+      "local_evidence": {
+        "recorded_on": "2026-10-01",
+        "device": "NVIDIA GeForce RTX 4050 Laptop GPU / cuda:0",
+        "max_len": 512,
+        "head_max_len": 192,
+        "repeats": 3,
+        "quality": {
+          "issue_lane": {
+            "count": 233,
+            "correct": 222,
+            "review": 233,
+            "high_confidence_wrong": 0,
+            "agreement": 0.9528,
+            "macro_f1": 0.6526
+          },
+          "qa_cause": {
+            "count": 7,
+            "correct": 4,
+            "review": 7,
+            "high_confidence_wrong": 0,
+            "agreement": 0.5714,
+            "macro_f1": 0.2667
+          },
+          "security_specialist": {
+            "count": 7,
+            "correct": 7,
+            "review": 7,
+            "high_confidence_wrong": 0,
+            "agreement": 1.0,
+            "macro_f1": 1.0
+          }
+        },
+        "service_ms": {
+          "median": 63.27,
+          "p95": 79.02
+        },
+        "http_ms": {
+          "median": 66.32,
+          "p95": 82.15
+        },
+        "batch": {
+          "states": 32,
+          "microbatch": 2,
+          "median_ms": 1126.44,
+          "states_per_second": 28.41
+        },
+        "fresh_process_first_service_ms": 7966.35,
+        "fresh_process_load_ms": 7393.04,
+        "fresh_process_peak_allocated_bytes": 2454071296,
+        "method": "247 unique cases: 233 issue lanes, seven security topics, seven QA observations. Three repeated passes; quality uses first pass. Fixed label order. Reference agreement, not independent vulnerability or production accuracy. All three missed the card-required trial. Baseline: always dependency matches 196/233 (84.12%). Startup is one fresh-process sample, not a percentile or cold boot. Allocator peak excludes other processes and CUDA/display overhead."
+      },
+      "metadata_url": "/api/v1/models/typed-decisions/metadata"
+    }
+  ],
+  "sources": [
+    {
+      "id": "family",
+      "title": "Laya family model card",
+      "url": "https://huggingface.co/convaiinnovations/laya/blob/main/README.md",
+      "reviewed_at": "2026-10-01"
+    },
+    {
+      "id": "multilingual",
+      "title": "Multilingual model card",
+      "url": "https://huggingface.co/convaiinnovations/laya-multilingual/blob/main/README.md",
+      "reviewed_at": "2026-10-01"
+    },
+    {
+      "id": "typed",
+      "title": "Typed-decisions model card",
+      "url": "https://huggingface.co/convaiinnovations/laya-typed-decisions/blob/main/README.md",
+      "reviewed_at": "2026-10-01"
+    },
+    {
+      "id": "limits",
+      "title": "Upstream benchmark limitations",
+      "url": "https://nandhakishorm.github.io/laya/benchmarks/",
+      "reviewed_at": "2026-10-01"
+    },
+    {
+      "id": "benchmarks",
+      "title": "Upstream benchmark tables and corrections",
+      "url": "https://github.com/NandhaKishorM/laya/blob/main/BENCHMARKS.md",
+      "reviewed_at": "2026-10-01"
+    },
+    {
+      "id": "sdk",
+      "title": "Upstream Agent API",
+      "url": "https://nandhakishorm.github.io/laya/reference/agent/",
+      "reviewed_at": "2026-10-01"
+    },
+    {
+      "id": "structured",
+      "title": "Upstream schema-driven decisions",
+      "url": "https://nandhakishorm.github.io/laya/structured/",
+      "reviewed_at": "2026-10-01"
+    },
+    {
+      "id": "adoption",
+      "title": "Upstream staged adoption",
+      "url": "https://nandhakishorm.github.io/laya/staged-adoption/",
+      "reviewed_at": "2026-10-01"
+    },
+    {
+      "id": "config-english",
+      "title": "Pinned english configuration",
+      "url": "https://huggingface.co/convaiinnovations/laya/blob/55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851/rl_agent_config.json",
+      "reviewed_at": "2026-10-01"
+    },
+    {
+      "id": "config-multilingual",
+      "title": "Pinned multilingual configuration",
+      "url": "https://huggingface.co/convaiinnovations/laya/blob/55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851/multilingual/rl_agent_config.json",
+      "reviewed_at": "2026-10-01"
+    },
+    {
+      "id": "config-typed-decisions",
+      "title": "Pinned typed-decisions configuration",
+      "url": "https://huggingface.co/convaiinnovations/laya/blob/55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851/typed-decisions/rl_agent_config.json",
+      "reviewed_at": "2026-10-01"
+    }
+  ],
+  "provenance": "Published capability summaries were reviewed on the stated date and may change upstream. Local configs, hosted constraints and measured evidence describe the pinned installation. Guides do not update weights or perform network requests at runtime.",
+  "links": {
+    "json": "/models.json",
+    "markdown": "/docs/models.md",
+    "authenticated_api": "/api/v1/model-metadata",
+    "mcp_resource": "laya://models",
+    "mcp_guide": "laya://model-guide",
+    "mcp_tool": "laya_model_info",
+    "openapi": "/openapi.json",
+    "benchmark": "/api/v1/benchmark"
+  }
+}

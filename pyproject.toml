@@ -1,0 +1,28 @@
+[project]
+name = "laya-local"
+version = "0.1.0"
+description = "Local GPU-only Laya testing portal and agent service"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "laya[serve]==0.3.22",
+  "torch==2.10.0+cu128",
+  "transformers==4.57.6",
+  "mcp==2.2.0",
+  "httpx>=0.28,<1",
+  "python-dotenv>=1,<2",
+]
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "pytest-asyncio>=1,<2"]
+
+[[tool.uv.index]]
+name = "pytorch-cuda"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cuda" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

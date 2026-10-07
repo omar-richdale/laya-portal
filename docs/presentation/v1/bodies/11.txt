@@ -1,0 +1,11 @@
+SLIDE NUMBER (bottom right): "11 / 12"
+ARCHETYPE: Two tracks. Solid main line Playwright assertions to captured evidence to existing reasoning triage to report. Dashed Laya shadow branch from redacted evidence returns probability labels. Two evidence case cards below.
+
+TITLE, exact text: VPN QA: CONTRACT BEFORE CLASSIFIER
+
+MAIN LINE: Playwright → evidence → reasoning triage → report
+SHADOW: Trusted contract + redacted facts → Laya → optional report metadata
+CASE 1: GhostShield GS-018 · outdated automatic-trial expectation
+CASE 2: TotalGuard GS-027 / GS-028 · signed-out app tokens still validate
+APPLIED: Optional QA_LAYA_URL and QA_LAYA_API_KEY. Test results and notification policy stay authoritative.
+BOUNDARY: Preserve sign-out security assertions. Never turn a failure green using a classification.

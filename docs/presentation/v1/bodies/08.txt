@@ -1,0 +1,10 @@
+SLIDE NUMBER (bottom right): "08 / 12"
+ARCHETYPE: Evidence comparison. Left card CURRENT CONTRACT, center card OLD TEST, right card ALL THREE MODELS. Below, a solid deterministic fix lane highlighted amber and dashed model advice lane violet.
+
+TITLE, exact text: THE CARD-REQUIRED TRIAL
+
+CURRENT CONTRACT: GhostShield trial activation now requires a credit card.
+OLD TEST: GS-018 expected an automatic trial after email verification. Actual page: paywall.
+ALL THREE MODELS: Predicted PRODUCT_BUG. Missed the evidence reference: TEST_BUG.
+APPLIED FIX: Update the GhostShield profile to expect no automatic trial. Keep token-revocation assertions intact.
+BOUNDARY: No trial purchase or credit-card charge was executed. A model cannot approve a policy change.

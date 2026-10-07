@@ -1,0 +1,9 @@
+{
+  "final_sha256": "9eb2551ee5c2857e0c43a076c0233621eb1ab99852302a7a2639307a60ffb25e",
+  "package_status": "pass",
+  "slides": 12,
+  "layout_findings": 0,
+  "visual_inspection": "All 12 final imported/rendered slides manually inspected; no clipping or content correction required.",
+  "pdf_pages": 12,
+  "content_format": "Full generated raster slide images; descriptive alt text and source notes in PPTX."
+}
