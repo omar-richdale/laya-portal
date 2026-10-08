@@ -7,6 +7,7 @@ All `/api/v1/*` routes require an exact `Authorization: Bearer <LAYA_API_KEY>` h
 | POST | `/api/v1/predict` | One prediction request → upstream result plus runtime metadata |
 | POST | `/api/v1/predict/batch` | `{requests: [prediction,...], batch_size: 1 or 2, sort_by_length: true}` → `{results: [...], runtime: {...}}` |
 | GET | `/api/v1/models` | Saved default, resident model, downloaded checkpoint list and context budgets |
+| GET | `/api/v1/decision-suite` | Frozen everyday test cases, policies, reference labels and compact saved measurements; no GPU work |
 | GET | `/api/v1/model-metadata` | Reviewed capabilities and detailed offline metadata for all three checkpoints |
 | GET | `/api/v1/models/{model}/metadata` | Detailed learning metadata for one named checkpoint; auto is routing mode |
 | PUT | `/api/v1/settings/model` | `{model: "auto" or checkpoint name}` → updated model listing |
@@ -14,6 +15,8 @@ All `/api/v1/*` routes require an exact `Authorization: Bearer <LAYA_API_KEY>` h
 | POST | `/api/v1/shutdown` | `{}` → request graceful shutdown of the managed process; accepted work drains first |
 
 ## Prediction request
+
+The portal's **Batch testing → Decision lab** fetches `/api/v1/decision-suite` and replays selected cases through `/api/v1/predict`, one request at a time. Each checkpoint gets one excluded warm-up. Catalog references stay outside prediction inputs. The catalog's fixture hash ties its 130 English-only cases to the saved October 8 comparison; an additional request hash preserves answer-option order, which can affect predictions. The three moderation suites use custom allow/review/block policies. Stopped or failed runs retain completed results, and truncated or misrouted answers cannot count as matches. Live results are held in the page and can be exported. The catalog is cached; restart after intentionally replacing its canonical fixtures or baseline.
 
 Required: `state` (text, JSON object or list) and `questions` (mapping of question IDs to definitions). Optional: `model`, `max_len`, `head_max_len`, `min_confidence`.
 

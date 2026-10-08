@@ -11,6 +11,7 @@ Run PowerShell commands from the repository root unless stated otherwise. The ru
 | `laya_portal/mcp_api.py` | MCP tools/resources sharing the service lifespan. |
 | `laya_portal/model_catalog.py`, `docs/models.json` | Cached, versioned model learning metadata. |
 | `laya_portal/workflows.py`, `benchmark.py` | Fixed advisory questions and frozen benchmark access. |
+| `laya_portal/decision_suite.py`, `frontend/src/DecisionLab.tsx` | Authenticated everyday study catalog and selectable live replay under Batch testing. |
 | `frontend/src/` | React dashboard, model guide and real-example replay. |
 | `examples/` | Runnable HTTP, workflow, benchmark and advisory clients. |
 | `scripts/` | Setup support, verification, corpus and documentation tooling. |
@@ -77,6 +78,8 @@ Review the resulting PNGs before committing. They contain example input/output a
 Metadata reads do not load a checkpoint. Source claims, hosted limits and measured local results are distinct fields. Keep all three aligned with the reference runtime and service validation. Never present an encoder's positional capacity as a guarantee of supported inference quality or available VRAM.
 
 ## Benchmark and sibling adapters
+
+The everyday Decision lab uses `docs/benchmark/everyday-fixtures.json` as the shared case source for the CLI and portal. `everyday-baseline.json` holds a compact snapshot of the October 8 measured run; fresh UI runs never replace it. Preserve dictionary insertion order for answer criteria: sorting JSON keys can change the model's predictions. The API checks both an order-insensitive fixture hash and an order-sensitive request hash against the baseline. `tests/test_decision_suite.py` verifies authentication, reference withholding, fixture identity and recorded counts. Browser checks cover scores, warm-up exclusion, exports, partial stop/failure and mobile layout. With `LAYA_LIVE_TEST=1`, the Decision lab browser check replays the entire 390-prediction study through the production UI. `examples/everyday_decisions.py` remains the CLI alternative and writes new full reports under ignored `data/examples/`.
 
 [The benchmark report](benchmark/REPORT.md) records the October 1 corpus, references, results and limitations. `examples/benchmark_real.py` runs real GPU measurements and may replace the checked-in result files; archive an earlier study before intentionally rerunning. `examples/real_workflows.py` replays individual examples without rebuilding the corpus.
 

@@ -1,5 +1,5 @@
 // Dashboard state stays in this tab. All predictions go to the shared Python worker.
-import { useEffect, useState, type ReactNode } from "react";
+import { lazy, Suspense, useEffect, useState, type ReactNode } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
@@ -27,6 +27,7 @@ import FadeContent from "./vendor/FadeContent";
 import { presets } from "./presets";
 import BenchmarkView from "./BenchmarkView";
 import ModelGuide from "./ModelGuide";
+import "./decisionLab.css";
 import type {
   Model,
   ModelInfo,
@@ -37,6 +38,7 @@ import type {
 } from "./types";
 
 const pretty = (value: unknown) => JSON.stringify(value, null, 2);
+const DecisionLab = lazy(() => import("./DecisionLab"));
 const choices: Model[] = ["auto", "english", "multilingual", "typed-decisions"];
 const names: Record<string, string> = {
   auto: "Automatic routing",
@@ -107,7 +109,9 @@ function Panel({
 }
 
 export default function App() {
-  const [tab, setTab] = useState(() => location.pathname === "/model-guide" ? "model-guide" : "playground");
+  const [tab, setTab] = useState(() => ["model-guide", "batch"].includes(location.pathname.slice(1)) ? location.pathname.slice(1) : "playground");
+  const [batchMode, setBatchMode] = useState(() => location.hash === "#decision-lab" ? "lab" : "custom");
+  const [labMounted, setLabMounted] = useState(() => location.hash === "#decision-lab");
   const [guideModel, setGuideModel] = useState(() => ["english", "multilingual", "typed-decisions"].includes(location.hash.slice(1)) ? location.hash.slice(1) : "english");
   const [key, setKey] = useState(
     () => sessionStorage.getItem("laya-key") || "",
@@ -352,7 +356,7 @@ export default function App() {
               className={tab === id ? "nav-item active" : "nav-item"}
               onClick={() => {
                 setTab(id);
-                history.replaceState(null, "", id === "model-guide" ? `/model-guide#${guideModel}` : "/");
+                history.replaceState(null, "", id === "model-guide" ? `/model-guide#${guideModel}` : id === "batch" ? `/batch${batchMode === "lab" ? "#decision-lab" : ""}` : "/");
                 setError("");
                 setNotice("");
               }}
@@ -1129,7 +1133,14 @@ export default function App() {
               </div>
             </>
           )}
-          {tab === "batch" && (
+          {tab === "batch" && <div className="batch-subnav" aria-label="Batch testing sections">
+            <button aria-pressed={batchMode === "custom"} onClick={() => { setBatchMode("custom"); history.replaceState(null, "", "/batch"); }}>Custom batch</button>
+            <button aria-pressed={batchMode === "lab"} onClick={() => { setBatchMode("lab"); setLabMounted(true); history.replaceState(null, "", "/batch#decision-lab"); }}>Decision lab <small>130 built-in cases</small></button>
+          </div>}
+          {labMounted && <div hidden={tab !== "batch" || batchMode !== "lab"}>
+            <Suspense fallback={<p>Loading Decision lab…</p>}><DecisionLab connected={connected} busy={busy} api={api} setBusy={setBusy} onComplete={() => void refresh()} /></Suspense>
+          </div>}
+          {tab === "batch" && batchMode === "custom" && (
             <div className="batch-grid">
               <Panel
                 title="Batch requests"

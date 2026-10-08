@@ -1,6 +1,6 @@
 // Opt in to a real GPU browser request; credentials are never saved in screenshots or traces.
 import {test,expect} from '@playwright/test';
-import {readFileSync} from 'node:fs';
+import {mkdirSync, readFileSync, writeFileSync} from 'node:fs';
 
 test('real CUDA service through the production portal',async({page})=>{
   test.skip(process.env.LAYA_LIVE_TEST!=='1','Set LAYA_LIVE_TEST=1 to exercise the actual GPU service.');
@@ -53,4 +53,36 @@ test('real issue benchmark can load a case and run it on CUDA', async ({page}) =
   await expect(page.getByRole('heading', {name:'Your issues, your GPU'})).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await page.screenshot({path:'test-results/real-benchmark-mobile.png', fullPage:true});
+});
+
+test('Decision lab replays the full fixed study through the real CUDA worker', async ({page}) => {
+  test.skip(process.env.LAYA_LIVE_TEST !== '1', 'Requires the local service.');
+  test.setTimeout(300000);
+  const key = readFileSync(new URL('../../.env', import.meta.url), 'utf8').match(/^LAYA_API_KEY=(.+)$/m)![1].trim();
+  const errors: string[] = [];
+  page.on('pageerror', e => errors.push(e.message));
+  await page.setViewportSize({width:1440, height:1100});
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.goto('/batch#decision-lab');
+  await page.getByLabel('API key', {exact:true}).fill(key);
+  await page.getByRole('button', {name:'Connect', exact:true}).click();
+  await expect(page.locator('.lab-kpis')).toContainText('390');
+  await page.locator('.lab-comparison').screenshot({path:'test-results/decision-lab-saved-real.png'});
+  await page.getByRole('button', {name:'Run selected tests', exact:true}).click();
+  await expect(page.getByText('Replay complete', {exact:true})).toBeVisible({timeout:240000});
+  await expect(page.locator('.lab-kpis')).toContainText('390');
+  const download = page.waitForEvent('download');
+  await page.getByRole('button', {name:'Export results', exact:true}).click();
+  const file = await download;
+  const result = JSON.parse(readFileSync((await file.path())!, 'utf8'));
+  expect(result.status).toBe('completed');
+  expect(result.records).toHaveLength(390);
+  expect(result.warmups).toHaveLength(3);
+  expect(result.request_sha256).toBe(JSON.parse(readFileSync(new URL('../../docs/benchmark/everyday-baseline.json', import.meta.url), 'utf8')).request_sha256);
+  expect(result.records.every((r: {valid: boolean; device: string}) => r.valid && r.device === 'cuda:0')).toBe(true);
+  expect(errors).toEqual([]);
+  mkdirSync(new URL('../../data/verification/', import.meta.url), {recursive:true});
+  writeFileSync(new URL('../../data/verification/decision-lab-live.json', import.meta.url), JSON.stringify(result, null, 2));
+  await page.locator('.lab-comparison').screenshot({path:'test-results/decision-lab-live-real.png'});
+  await page.locator('.decision-lab').screenshot({path:'test-results/decision-lab-live-full.png'});
 });

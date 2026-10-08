@@ -6,3 +6,4 @@
 
 - Model learning catalog: ../progress/model-guides-progress.md; public portal /model-guide and docs/models.md / docs/models.json.
 - Documentation and capture workflow: ../progress/documentation-refresh-progress.md; docs/development.md and docs/screenshots/README.md.
+- Everyday Decision lab: decisions.md; canonical fixtures and baseline under docs/benchmark/everyday-*.json; portal /batch#decision-lab. Preserve answer-option order and ordered-request hash.

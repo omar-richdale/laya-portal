@@ -13,7 +13,7 @@ Inference uses Python + PyTorch. The React portal is built once and served by Fa
 | Portal view | Use it to |
 |---|---|
 | **Playground** | Enter text or JSON; inspect typed answers, probabilities, latency and actual device. |
-| **Batch testing** | Import/export JSON or JSONL and inspect ordered results. |
+| **Batch testing** | Import/export JSON or JSONL, or open Decision lab to compare and replay 130 built-in cases. |
 | **Models & GPU** | Inspect GPU memory and residency; change the persistent default. |
 | **Model guide** | Learn capabilities, token budgets, limitations and measured results. No key needed to read it. |
 | **Real benchmark** | Compare the frozen study and replay five understandable real examples. |
@@ -95,6 +95,8 @@ Six MCP tools share the same worker: `laya_predict`, `laya_predict_batch`, `laya
 Another trusted LAN device uses the server PC's address printed by `start.ps1`, the same key, and the optional local-subnet firewall rule. Third-party browser origins are disabled. A cloud agent needs a network path to this PC. [LAN setup](docs/operations.md#use-it-on-your-local-network)
 
 ## Try the examples
+
+In **Batch testing → Decision lab**, explore the recorded everyday comparison, choose any of six suites and three checkpoints, and rerun the tests on your GPU. Tables show reference accuracy, median/p95 inference, HTTP timing, warm-up time and confidence coverage. Inspect individual decisions, policies and confusion tables; export results or a suite's requests. The saved comparison remains available alongside your latest run. A full replay scores 390 decisions plus three excluded warm-ups. These are synthetic English-only cases with custom moderation policies; image/video suites classify text prompts only.
 
 Start the service, then run:
 

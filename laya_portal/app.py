@@ -141,6 +141,11 @@ def create_app(service=None, *, api_key=None, initialize=True):
     def models() -> dict:
         return service.models()
 
+    @app.get("/api/v1/decision-suite", dependencies=auth, tags=["Benchmark"])
+    def decision_suite():
+        from .decision_suite import catalog
+        return catalog()
+
     @app.get("/api/v1/model-metadata", dependencies=auth, tags=["Model learning"], response_model=ModelMetadataResponse)
     def model_metadata():
         """Read capabilities, local budgets, measured evidence and sources without GPU work."""

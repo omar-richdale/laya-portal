@@ -1,5 +1,7 @@
 # Live Laya examples for vpn-bugsmith
 
+For everyday model routing, support routing, sentiment and chat/image/video prompt moderation, open **Batch testing → Decision lab** in the portal. It includes 130 labeled cases, a saved three-checkpoint comparison, selective GPU replay, timing/accuracy tables, confusion tables, case inspection and JSON exports. The CLI alternative is `.\.venv\Scripts\python.exe examples\everyday_decisions.py`; both use `docs/benchmark/everyday-fixtures.json`. Read the [October 8 study](../docs/benchmark/everyday-decisions-20261008.md) for the original results and limitations.
+
 These three examples call the service already hosted by this project. They use synthetic QA findings, evidence fragments and proposed agent actions based on `vpn-bugsmith`'s actual contracts. No repair tools run and the Bugsmith repository is not modified. They show model decisions, full probability distributions, fixture disagreements, suggested handling, token usage, actual CUDA device and timing.
 
 Laya supplies typed decisions rather than generated code or prose. Use it for small repeated judgments around the repair engine: which owner should investigate, whether evidence attempts to redirect the agent, and whether a proposed edit conflicts with its objective. Factory's coding model still writes the patch. The upstream [model card](https://huggingface.co/convaiinnovations/laya/blob/main/README.md) describes the checkpoint family and its calibration limitations.
